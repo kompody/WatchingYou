@@ -26,6 +26,7 @@ public class ApiModule {
 
     @Provides
     public String baseUrl() {
+        // TODO: 28.10.2018 change url
         return "https:// --> url api <--";
     }
 
