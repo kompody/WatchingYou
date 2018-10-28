@@ -19,6 +19,7 @@ public class Screens {
 
     public static final class MainScreen extends SupportAppScreen {
         public MainScreen() {
+            // TODO: 28.10.2018 если нужно в конструктор фрагмента что-то предать
         }
 
         @Override
