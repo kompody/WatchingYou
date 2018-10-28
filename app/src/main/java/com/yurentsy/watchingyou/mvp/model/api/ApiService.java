@@ -1,0 +1,13 @@
+package com.yurentsy.watchingyou.mvp.model.api;
+
+import com.yurentsy.watchingyou.mvp.model.entity.User;
+
+import java.util.List;
+
+import io.reactivex.Observable;
+import retrofit2.http.GET;
+
+public interface ApiService {
+    @GET("users.get")
+    Observable<List<User>> getUsers();
+}
