@@ -1,4 +1,4 @@
-package silantyevmn.ru.materialdesign.model.photo;
+package com.yurentsy.watchingyou.ui.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -9,34 +9,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.yurentsy.watchingyou.R;
+import com.yurentsy.watchingyou.mvp.model.entity.Person;
+import com.yurentsy.watchingyou.mvp.presenter.MainPresenter;
 
 import java.util.List;
 
-import silantyevmn.ru.materialdesign.R;
 
+public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> {
+    private List<Person> list;
+    private MainPresenter presenter;
 
-public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.MyViewHolder> {
-    private final int PHOTO_WIDTH = 0; //длина фото 0 значит, что может растягиваться по горизонтали
-    private final int PHOTO_HEIGHT = 150; //высота фото
-    private final OnClickAdapter listener;
-    private List<Photo> photos;
-
-    public interface OnClickAdapter {
-        void onClickPhoto(int position);
-
-        void onClickMenuDelete(int position);
-
-        void onClickMenuFavorite(int position);
-    }
-
-    public PhotoAdapter(List<Photo> photos, OnClickAdapter listener) {
-        this.photos = photos;
-        this.listener = listener;
-    }
-
-    public void setPhotos(List<Photo> photos) {
-        this.photos = photos;
-        notifyDataSetChanged();
+    public MainAdapter(List<Person> list, MainPresenter presenter) {
+        this.list = list;
+        this.presenter = presenter;
     }
 
     @NonNull
@@ -48,69 +34,36 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
-        holder.bind(photos.get(position));
+        holder.bind(list.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return photos.size();
+        return list.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
-        private ImageView imagePhoto;
-        private ImageView imageFavorite;
-        private TextView textName;
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        private ImageView ivPersonPhoto;
+        private TextView tvName;
+        private TextView tvPosition;
 
         MyViewHolder(final View itemView) {
             super(itemView);
-            imagePhoto = itemView.findViewById(R.id.card_image_photo);
-            imageFavorite = itemView.findViewById(R.id.cart_item_favorite);
-            textName = itemView.findViewById(R.id.card_item_text);
-
-            imagePhoto.setOnClickListener(this);
-            imagePhoto.setOnLongClickListener(this);
-            imageFavorite.setOnClickListener(this);
-
+            ivPersonPhoto=itemView.findViewById(R.id.iv_photo_small);
+            tvName=itemView.findViewById(R.id.tv_name);
+            tvPosition=itemView.findViewById(R.id.tv_position);
         }
 
-        void bind(Photo photo) {
+        void bind(Person person) {
             Picasso.get()
-                    .load(photo.getUri())
-                    .placeholder(R.drawable.ic_autorenew_black)
-                    .error(R.drawable.ic_crop_original_black)
-                    .resize(PHOTO_WIDTH, PHOTO_HEIGHT)
-                    .centerCrop()
-                    .into(imagePhoto);
-            if (photo.isFavorite()) {
-                imageFavorite.setImageResource(R.drawable.ic_favorite_white_24dp);
-            } else {
-                imageFavorite.setImageResource(R.drawable.ic_favorite_border_white);
-            }
-            textName.setText(photo.getName());
+                    .load(person.getUrlPhoto())
+                    .placeholder(R.drawable.ic_autorenew_black_24dp)
+                    .error(R.drawable.ic_crop_original_black_24dp)
+                    .into(ivPersonPhoto);
+            tvName.setText(person.getName()+" "+person.getSurname());
+            tvPosition.setText(person.getPosition());
         }
 
-        @Override
-        public void onClick(View view) {
-            switch (view.getId()) {
-                case R.id.card_image_photo: {
-                    listener.onClickPhoto(getAdapterPosition());
-                    break;
-                }
-                case R.id.cart_item_favorite: {
-                    listener.onClickMenuFavorite(getAdapterPosition());
-                    break;
-                }
-                default:
-                    break;
-            }
-
-        }
-
-        @Override
-        public boolean onLongClick(View view) {
-            listener.onClickMenuDelete(getAdapterPosition());
-            return true;
-        }
     }
 }
 
