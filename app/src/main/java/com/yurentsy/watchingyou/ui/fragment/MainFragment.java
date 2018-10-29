@@ -65,10 +65,11 @@ public class MainFragment extends MvpAppCompatFragment implements MainView, Back
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.fragment_menu, menu);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.title1:
+            case R.id.menu_item_setting:
                 // do
                 return true;
             default:
@@ -97,7 +98,7 @@ public class MainFragment extends MvpAppCompatFragment implements MainView, Back
     @Override
     public void init() {
         // TODO: 28.10.2018 adapter и все такое
-        LinearLayoutManager manager=new LinearLayoutManager(getContext());
+        LinearLayoutManager manager = new LinearLayoutManager(getContext());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(manager);
         //тестовый список
