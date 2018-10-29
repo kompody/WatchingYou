@@ -2,19 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:title="Item1"
-        android:id="@+id/title1"
-        app:showAsAction="never"/>
-    <item
-        android:title="Item2"
-        android:id="@+id/title2"
-        app:showAsAction="never"/>
-    <item
-        android:title="Item3"
-        android:id="@+id/title3"
+        android:title="search"
+        android:id="@+id/menu_item_search"
+        android:icon="@drawable/ic_search_white_24dp"
         app:showAsAction="always"/>
     <item
-        android:title="Item4"
-        android:id="@+id/title4"
+        android:title="update"
+        android:id="@+id/menu_item_update"
+        android:icon="@drawable/ic_update_white_24dp"
         app:showAsAction="always"/>
+    <item
+        android:title="setting"
+        android:id="@+id/menu_item_setting"
+        app:showAsAction="never"/>
 </menu>
