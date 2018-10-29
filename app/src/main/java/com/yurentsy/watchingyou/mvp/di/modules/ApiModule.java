@@ -27,7 +27,7 @@ public class ApiModule {
     @Provides
     public String baseUrl() {
         // TODO: 28.10.2018 change url
-        return "https:// --> url api <--";
+        return "http://private-15469-employees14.apiary-mock.com/";
     }
 
     @Provides
