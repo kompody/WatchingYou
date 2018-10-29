@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">WatchingYou</string>
+    <string name="todo">TODO</string>
+    <string name="name">Имя</string>
+    <string name="surname">Фамилия</string>
+    <string name="phone">Телефон</string>
+    <string name="adress">Адрес</string>
+    <string name="position">Должность</string>
+    <string name="email">email</string>
 </resources>
