@@ -13,15 +13,10 @@ import com.yurentsy.watchingyou.R;
 import com.yurentsy.watchingyou.mvp.model.entity.Person;
 import com.yurentsy.watchingyou.mvp.presenter.MainPresenter;
 
-import java.util.List;
-
-
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> {
-    private List<Person> list;
     private MainPresenter presenter;
 
-    public MainAdapter(List<Person> list, MainPresenter presenter) {
-        this.list = list;
+    public MainAdapter(MainPresenter presenter) {
         this.presenter = presenter;
     }
 
@@ -34,12 +29,12 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
-        holder.bind(list.get(position));
+        presenter.bindViewHolder(holder, position);
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return presenter.getPersoneSize();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -49,18 +44,18 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
 
         MyViewHolder(final View itemView) {
             super(itemView);
-            ivPersonPhoto=itemView.findViewById(R.id.iv_photo_small);
-            tvName=itemView.findViewById(R.id.tv_name);
-            tvPosition=itemView.findViewById(R.id.tv_position);
+            ivPersonPhoto = itemView.findViewById(R.id.iv_photo_small);
+            tvName = itemView.findViewById(R.id.tv_name);
+            tvPosition = itemView.findViewById(R.id.tv_position);
         }
 
-        void bind(Person person) {
+        public void bind(Person person) {
             Picasso.get()
                     .load(person.getUrlPhoto())
                     .placeholder(R.drawable.ic_autorenew_black_24dp)
                     .error(R.drawable.ic_crop_original_black_24dp)
                     .into(ivPersonPhoto);
-            tvName.setText(person.getName()+" "+person.getSurname());
+            tvName.setText(person.getName() + " " + person.getSurname());
             tvPosition.setText(person.getPosition());
         }
 

@@ -17,15 +17,11 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.yurentsy.watchingyou.App;
 import com.yurentsy.watchingyou.R;
-import com.yurentsy.watchingyou.mvp.model.entity.Person;
-import com.yurentsy.watchingyou.mvp.model.entity.PersonFactory;
+import com.yurentsy.watchingyou.mvp.model.repo.Repo;
 import com.yurentsy.watchingyou.mvp.presenter.MainPresenter;
 import com.yurentsy.watchingyou.mvp.view.MainView;
 import com.yurentsy.watchingyou.ui.adapter.MainAdapter;
 import com.yurentsy.watchingyou.ui.common.BackButtonListener;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -35,6 +31,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import ru.terrakok.cicerone.Router;
 
 public class MainFragment extends MvpAppCompatFragment implements MainView, BackButtonListener {
+
+    @Inject
+    Repo repo;
 
     @Inject
     Router router;
@@ -50,7 +49,7 @@ public class MainFragment extends MvpAppCompatFragment implements MainView, Back
 
     @ProvidePresenter
     public MainPresenter provideGeneralPresenter() {
-        return new MainPresenter(AndroidSchedulers.mainThread(), router);
+        return new MainPresenter(AndroidSchedulers.mainThread(), router, repo);
     }
 
     @Override
@@ -102,9 +101,13 @@ public class MainFragment extends MvpAppCompatFragment implements MainView, Back
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(manager);
         //тестовый список
-        adapter = new MainAdapter(PersonFactory.getList(),presenter);
+        adapter = new MainAdapter(presenter);
         recyclerView.setAdapter(adapter);
     }
 
+    @Override
+    public void updateList() {
+        adapter.notifyDataSetChanged();
+    }
 
 }

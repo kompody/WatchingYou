@@ -12,6 +12,6 @@ import dagger.Provides;
 public class RepoModule {
     @Provides
     public Repo generalRepository(ApiService api, Cache cache) {
-        return new RepoPerson();
+        return new RepoPerson(api, cache);
     }
 }

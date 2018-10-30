@@ -1,7 +1,5 @@
 package com.yurentsy.watchingyou.mvp.di;
 
-import com.yurentsy.watchingyou.mvp.di.modules.ApiModule;
-import com.yurentsy.watchingyou.mvp.di.modules.CacheModule;
 import com.yurentsy.watchingyou.mvp.di.modules.NavigationModule;
 import com.yurentsy.watchingyou.mvp.di.modules.RepoModule;
 import com.yurentsy.watchingyou.ui.activity.StartActivity;
@@ -14,9 +12,7 @@ import dagger.Component;
 @Singleton
 @Component(modules = {
         NavigationModule.class,
-        ApiModule.class,
-        RepoModule.class,
-        CacheModule.class
+        RepoModule.class
 })
 public interface AppComponent {
     void inject(StartActivity startActivity);

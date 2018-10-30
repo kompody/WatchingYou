@@ -1,7 +1,5 @@
 package com.yurentsy.watchingyou.mvp.model.repo;
 
-import android.support.v7.widget.RecyclerView;
-
 import com.yurentsy.watchingyou.NetworkStatus;
 import com.yurentsy.watchingyou.mvp.model.api.ApiService;
 import com.yurentsy.watchingyou.mvp.model.cache.Cache;
@@ -12,10 +10,14 @@ import java.util.List;
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 
-
-public class RepoPerson implements Repo{
-    private Cache cache;
+public class RepoPerson implements Repo {
     private ApiService api;
+    private Cache cache;
+
+    public RepoPerson(ApiService api, Cache cache) {
+        this.api = api;
+        this.cache = cache;
+    }
 
     @Override
     public Observable<List<Person>> getPersons() {

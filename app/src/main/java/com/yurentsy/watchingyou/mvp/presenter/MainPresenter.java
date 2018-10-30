@@ -1,8 +1,16 @@
 package com.yurentsy.watchingyou.mvp.presenter;
 
+import android.annotation.SuppressLint;
+
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
+import com.yurentsy.watchingyou.mvp.model.entity.Person;
+import com.yurentsy.watchingyou.mvp.model.repo.Repo;
 import com.yurentsy.watchingyou.mvp.view.MainView;
+import com.yurentsy.watchingyou.ui.adapter.MainAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.Scheduler;
 import ru.terrakok.cicerone.Router;
@@ -12,10 +20,21 @@ public class MainPresenter extends MvpPresenter<MainView> {
 
     private Scheduler scheduler;
     private Router router;
+    private Repo repo;
+    private List<Person> people = new ArrayList<>();
 
-    public MainPresenter(Scheduler scheduler, Router router) {
+    @SuppressLint("CheckResult")
+    public MainPresenter(Scheduler scheduler, Router router, Repo repo) {
         this.scheduler = scheduler;
         this.router = router;
+        this.repo = repo;
+
+        repo.getPersons()
+                .observeOn(scheduler)
+                .subscribe(persones -> {
+                    people.addAll(persones);
+                    getViewState().updateList();
+                });
     }
 
     @Override
@@ -26,5 +45,13 @@ public class MainPresenter extends MvpPresenter<MainView> {
 
     public void onBackPressed() {
         router.exit();
+    }
+
+    public void bindViewHolder(MainAdapter.MyViewHolder holder, int position) {
+        holder.bind(people.get(position));
+    }
+
+    public int getPersoneSize() {
+        return people.size();
     }
 }
