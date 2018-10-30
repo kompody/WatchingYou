@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
+import com.yurentsy.watchingyou.Screens;
 import com.yurentsy.watchingyou.mvp.model.entity.Person;
 import com.yurentsy.watchingyou.mvp.model.repo.Repo;
 import com.yurentsy.watchingyou.mvp.view.MainView;
@@ -53,5 +54,17 @@ public class MainPresenter extends MvpPresenter<MainView> {
 
     public int getPersoneSize() {
         return people.size();
+    }
+
+    public void toSettingScreen() {
+        router.navigateTo(new Screens.SettingScreen());
+    }
+
+    public void toFindScreen() {
+        router.navigateTo(new Screens.FindScreen(666));
+    }
+
+    public void toUpdateScreen() {
+        router.navigateTo(new Screens.UpdateScreen("Azino", "casino", 777));
     }
 }

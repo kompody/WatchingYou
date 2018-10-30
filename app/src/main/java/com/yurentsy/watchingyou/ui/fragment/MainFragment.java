@@ -69,11 +69,18 @@ public class MainFragment extends MvpAppCompatFragment implements MainView, Back
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_item_setting:
-                // do
-                return true;
+                presenter.toSettingScreen();
+                break;
+            case R.id.menu_item_search:
+                presenter.toFindScreen();
+                break;
+            case R.id.menu_item_update:
+                presenter.toUpdateScreen();
+                break;
             default:
                 return super.onOptionsItemSelected(item);
         }
+        return true;
     }
 
     @Nullable
