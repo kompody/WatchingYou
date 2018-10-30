@@ -22,9 +22,13 @@ public class RepoPerson implements Repo {
     @Override
     public Observable<List<Person>> getPersons() {
         if (NetworkStatus.isOnline()) {
-            return api.getPersons().subscribeOn(Schedulers.io());
+            return api.getPersons().subscribeOn(Schedulers.io())
+                    .doOnNext(list -> {
+                        cache.putAll(list);
+                    });
+            //return api.getPersons().subscribeOn(Schedulers.io());
         } else {
-            return cache.getPersons();
+            return cache.getPersons().subscribeOn(Schedulers.io());
         }
     }
 
