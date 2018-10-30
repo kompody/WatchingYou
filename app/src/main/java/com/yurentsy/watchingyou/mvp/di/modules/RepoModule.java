@@ -3,6 +3,7 @@ package com.yurentsy.watchingyou.mvp.di.modules;
 import com.yurentsy.watchingyou.mvp.model.api.ApiService;
 import com.yurentsy.watchingyou.mvp.model.cache.Cache;
 import com.yurentsy.watchingyou.mvp.model.repo.Repo;
+import com.yurentsy.watchingyou.mvp.model.repo.RepoPerson;
 
 import dagger.Module;
 import dagger.Provides;
@@ -11,6 +12,6 @@ import dagger.Provides;
 public class RepoModule {
     @Provides
     public Repo generalRepository(ApiService api, Cache cache) {
-        return null;
+        return new RepoPerson();
     }
 }
