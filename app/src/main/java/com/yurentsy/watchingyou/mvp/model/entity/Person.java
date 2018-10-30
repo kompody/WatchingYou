@@ -8,11 +8,14 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class Person {
-/*    "id": 2001,
-            "name": "Vladimir",
-            "surname": "Putin",
-            "position": "",
-            "urlPhoto": "https://www.worldpresidentsdb.com/images/presidents/vladimir-putin.jpg"*/
+/*"id": 2001,
+        "name": "Vladimir",
+        "surname": "Putin",
+        "position": "Managing director",
+        "number": "305-701-2307",
+        "email": "v.putin@world.io",
+        "address": "98 Shinn Street",
+        "urlPhoto": "https://www.worldpresidentsdb.com/images/presidents/vladimir-putin.jpg"*/
     @SerializedName("id")
     @Expose
     private String id;
@@ -29,15 +32,30 @@ public class Person {
     @Expose
     private String position;
 
+    @SerializedName("number")
+    @Expose
+    private String number;
+
+    @SerializedName("email")
+    @Expose
+    private String email;
+
+    @SerializedName("address")
+    @Expose
+    private String address;
+
     @SerializedName("urlPhoto")
     @Expose
     private String urlPhoto;
 
-    public Person(String id, String name, String surname, String position, String urlPhoto) {
+    public Person(String id, String name, String surname, String position, String number, String email, String address, String urlPhoto) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.position = position;
+        this.number = number;
+        this.email = email;
+        this.address = address;
         this.urlPhoto = urlPhoto;
     }
 
@@ -64,4 +82,15 @@ public class Person {
         return urlPhoto;
     }
 
+    public String getNumber() {
+        return number;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
 }
