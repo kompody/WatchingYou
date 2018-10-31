@@ -84,6 +84,7 @@ public class MainFragment extends MvpAppCompatFragment implements MainView, Back
         ButterKnife.bind(this, view);
 
         Toolbar toolbar=view.findViewById(R.id.d_toolbar);
+        toolbar.setTitle(R.string.app_name);
         //прикрутим меню
         toolbar.inflateMenu(R.menu.fragment_menu);
         //обработка меню
