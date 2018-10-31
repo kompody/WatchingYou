@@ -4,8 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:layout_editor_absoluteY="8dp">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/d_toolbar"
+        style="@style/MainToolbar"
+        app:navigationIcon="@android:drawable/ic_menu_revert" />
 
     <ImageView
         android:id="@+id/photo"

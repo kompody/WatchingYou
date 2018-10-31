@@ -59,4 +59,8 @@ public class MainPresenter extends MvpPresenter<MainView> {
     public void onClickMenuSetting() {
         router.navigateTo(new Screens.SettingScreen());
     }
+
+    public void onClickPerson(int position) {
+        router.navigateTo(new Screens.PersonScreen(people.get(position)));
+    }
 }

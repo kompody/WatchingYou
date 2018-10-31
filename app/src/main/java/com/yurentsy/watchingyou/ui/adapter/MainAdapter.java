@@ -30,6 +30,9 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
         presenter.bindViewHolder(holder, position);
+        holder.itemView.setOnClickListener(item->{
+            presenter.onClickPerson(position);
+        });
     }
 
     @Override

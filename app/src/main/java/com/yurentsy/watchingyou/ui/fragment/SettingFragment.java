@@ -66,6 +66,7 @@ public class SettingFragment extends MvpAppCompatFragment implements SettingView
         ButterKnife.bind(this, view);
 
         Toolbar toolbar=view.findViewById(R.id.d_toolbar);
+        toolbar.setTitle(R.string.setting);
         toolbar.setNavigationOnClickListener(item->{
             onBackPressed();
         });

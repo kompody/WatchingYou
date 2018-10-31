@@ -4,8 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 
+import com.yurentsy.watchingyou.mvp.model.entity.Person;
 import com.yurentsy.watchingyou.ui.activity.StartActivity;
 import com.yurentsy.watchingyou.ui.fragment.MainFragment;
+import com.yurentsy.watchingyou.ui.fragment.PersonFragment;
 import com.yurentsy.watchingyou.ui.fragment.SettingFragment;
 
 import ru.terrakok.cicerone.android.support.SupportAppScreen;
@@ -37,6 +39,19 @@ public class Screens {
         @Override
         public Fragment getFragment() {
             return SettingFragment.getNewInstance();
+        }
+    }
+
+    public static final class PersonScreen extends SupportAppScreen {
+        private Person person;
+
+        public PersonScreen(Person person) {
+            this.person=person;
+        }
+
+        @Override
+        public Fragment getFragment() {
+            return PersonFragment.getNewInstance(person);
         }
     }
 }
