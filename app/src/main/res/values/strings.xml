@@ -7,4 +7,5 @@
     <string name="adress">Адрес</string>
     <string name="position">Должность</string>
     <string name="email">email</string>
+    <string name="setting">Setting</string>
 </resources>

@@ -4,10 +4,10 @@ import android.annotation.SuppressLint;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
-import com.yurentsy.watchingyou.Screens;
 import com.yurentsy.watchingyou.mvp.model.entity.Person;
 import com.yurentsy.watchingyou.mvp.model.repo.Repo;
 import com.yurentsy.watchingyou.mvp.view.MainView;
+import com.yurentsy.watchingyou.mvp.view.SettingView;
 import com.yurentsy.watchingyou.ui.adapter.MainAdapter;
 
 import java.util.ArrayList;
@@ -17,25 +17,15 @@ import io.reactivex.Scheduler;
 import ru.terrakok.cicerone.Router;
 
 @InjectViewState
-public class MainPresenter extends MvpPresenter<MainView> {
+public class SettingPresenter extends MvpPresenter<SettingView> {
 
     private Scheduler scheduler;
     private Router router;
-    private Repo repo;
-    private List<Person> people = new ArrayList<>();
 
     @SuppressLint("CheckResult")
-    public MainPresenter(Scheduler scheduler, Router router, Repo repo) {
+    public SettingPresenter(Scheduler scheduler, Router router) {
         this.scheduler = scheduler;
         this.router = router;
-        this.repo = repo;
-
-        repo.getPersons()
-                .observeOn(scheduler)
-                .subscribe(persones -> {
-                    people.addAll(persones);
-                    getViewState().updateList();
-                });
     }
 
     @Override
@@ -48,15 +38,4 @@ public class MainPresenter extends MvpPresenter<MainView> {
         router.exit();
     }
 
-    public void bindViewHolder(MainAdapter.MyViewHolder holder, int position) {
-        holder.bind(people.get(position));
-    }
-
-    public int getPersoneSize() {
-        return people.size();
-    }
-
-    public void onClickMenuSetting() {
-        router.navigateTo(new Screens.SettingScreen());
-    }
 }
