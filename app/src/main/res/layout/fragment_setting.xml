@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/d_toolbar"
         style="@style/MainToolbar"
-        app:title="@string/app_name" />
+        app:title="@string/setting"
+        app:navigationIcon="@android:drawable/ic_menu_revert"/>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_main"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="Тут будут какие-то настройки"/>
 
 </LinearLayout>

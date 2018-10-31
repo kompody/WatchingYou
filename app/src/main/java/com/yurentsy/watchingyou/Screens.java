@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 
 import com.yurentsy.watchingyou.ui.activity.StartActivity;
 import com.yurentsy.watchingyou.ui.fragment.MainFragment;
+import com.yurentsy.watchingyou.ui.fragment.SettingFragment;
 
 import ru.terrakok.cicerone.android.support.SupportAppScreen;
 
@@ -25,6 +26,17 @@ public class Screens {
         @Override
         public Fragment getFragment() {
             return MainFragment.getNewInstance();
+        }
+    }
+
+    public static final class SettingScreen extends SupportAppScreen {
+        public SettingScreen() {
+            // TODO: 28.10.2018 если нужно в конструктор фрагмента что-то предать
+        }
+
+        @Override
+        public Fragment getFragment() {
+            return SettingFragment.getNewInstance();
         }
     }
 }
