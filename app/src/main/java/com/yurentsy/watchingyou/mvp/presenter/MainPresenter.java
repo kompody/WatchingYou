@@ -22,6 +22,15 @@ public class MainPresenter extends MvpPresenter<MainView> {
     private Scheduler scheduler;
     private Router router;
     private Repo repo;
+
+    public void setPeople(List<Person> people) {
+        this.people = people;
+    }
+
+    public List<Person> getPeople() {
+        return people;
+    }
+
     private List<Person> people = new ArrayList<>();
 
     @SuppressLint("CheckResult")
