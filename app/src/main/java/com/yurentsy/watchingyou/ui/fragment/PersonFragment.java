@@ -17,6 +17,7 @@ import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.squareup.picasso.Picasso;
 import com.yurentsy.watchingyou.App;
 import com.yurentsy.watchingyou.R;
+import com.yurentsy.watchingyou.mvp.model.entity.Person;
 import com.yurentsy.watchingyou.mvp.presenter.PersonPresenter;
 import com.yurentsy.watchingyou.mvp.presenter.SettingPresenter;
 import com.yurentsy.watchingyou.mvp.view.PersonView;
@@ -31,6 +32,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import ru.terrakok.cicerone.Router;
 
 public class PersonFragment extends MvpAppCompatFragment implements PersonView,BackButtonListener {
+    private static final String KEY_PERSON="person";
 
     @Inject
     Router router;
@@ -38,19 +40,18 @@ public class PersonFragment extends MvpAppCompatFragment implements PersonView,B
     @InjectPresenter
     PersonPresenter presenter;
 
-    public static PersonFragment getNewInstance(String name,String urlPhoto) {
+    public static PersonFragment getNewInstance(Person person) {
         PersonFragment fragment = new PersonFragment();
         // TODO: 28.10.2018 если все же что-то добавил то fragment.setArguments(bundle)
         Bundle b=new Bundle();
-        b.putString("name",name);
-        b.putString("urlPhoto",urlPhoto);
+        b.putSerializable(KEY_PERSON,(Person) person);
         fragment.setArguments(b);
         return fragment;
     }
 
     @ProvidePresenter
     public PersonPresenter provideGeneralPresenter() {
-        return new PersonPresenter(AndroidSchedulers.mainThread(), router,getArguments().getString("name"),getArguments().getString("urlPhoto"));
+        return new PersonPresenter(AndroidSchedulers.mainThread(), router, (Person) getArguments().getSerializable(KEY_PERSON));
     }
 
     @Override
@@ -63,7 +64,7 @@ public class PersonFragment extends MvpAppCompatFragment implements PersonView,B
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_person_card, container, false);
+        View view = inflater.inflate(R.layout.fragment_card, container, false);
         ButterKnife.bind(this, view);
 
         Toolbar toolbar=view.findViewById(R.id.d_toolbar);
@@ -82,23 +83,35 @@ public class PersonFragment extends MvpAppCompatFragment implements PersonView,B
 
     @Override
     public void init() {
-        // TODO: 28.10.2018 adapter и все такое
+        //init
     }
 
-    @BindView(R.id.person_card_name)
+    @BindView(R.id.card_name)
     TextView tvName;
-    @BindView(R.id.person_card_photo)
+    @BindView(R.id.card_surname)
+    TextView tvSurname;
+    @BindView(R.id.card_adress)
+    TextView tvAddress;
+    @BindView(R.id.card_email)
+    TextView tvEmail;
+    @BindView(R.id.card_phone)
+    TextView tvPhone;
+    @BindView(R.id.card_position)
+    TextView tvPosition;
+    @BindView(R.id.photo)
     ImageView imagePhoto;
 
-    @Override
-    public void setName(String name) {
-        tvName.setText(name);
-    }
 
     @Override
-    public void setUrlPhoto(String urlPhoto) {
+    public void setCard(Person p) {
+        tvName.setText(tvName.getText()+":"+p.getName());
+        tvSurname.setText(tvSurname.getText()+":"+p.getSurname());
+        tvAddress.setText(tvAddress.getText()+":"+p.getAddress());
+        tvEmail.setText(tvEmail.getText()+":"+p.getEmail());
+        tvPhone.setText(tvPhone.getText()+":"+p.getNumber());
+        tvPosition.setText(tvPosition.getText()+":"+p.getPosition());
         Picasso.get()
-                .load(urlPhoto)
+                .load(p.getUrlPhoto())
                 .into(imagePhoto);
     }
 

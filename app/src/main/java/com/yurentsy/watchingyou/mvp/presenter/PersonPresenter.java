@@ -4,8 +4,10 @@ import android.annotation.SuppressLint;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
+import com.yurentsy.watchingyou.mvp.model.entity.Person;
 import com.yurentsy.watchingyou.mvp.view.PersonView;
-import com.yurentsy.watchingyou.mvp.view.SettingView;
+
+import java.io.Serializable;
 
 import io.reactivex.Scheduler;
 import ru.terrakok.cicerone.Router;
@@ -17,11 +19,19 @@ public class PersonPresenter extends MvpPresenter<PersonView> {
     private Router router;
 
     @SuppressLint("CheckResult")
-    public PersonPresenter(Scheduler scheduler, Router router,String name,String urlPhoto) {
+    public PersonPresenter(Scheduler scheduler, Router router, Person person) {
         this.scheduler = scheduler;
         this.router = router;
-        getViewState().setName(name);
-        getViewState().setUrlPhoto(urlPhoto);
+
+/*        getViewState().setName(person.getName());
+        getViewState().setUrlPhoto(person.getUrlPhoto());
+        getViewState().setSurname(person.getSurname());
+        getViewState().setAddress(person.getAddress());
+        getViewState().setEmail(person.getEmail());
+        getViewState().setPhone(person.getNumber());
+        getViewState().setPosition(person.getPosition());*/
+
+        getViewState().setCard(person);
     }
 
     @Override

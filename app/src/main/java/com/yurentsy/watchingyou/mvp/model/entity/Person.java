@@ -3,11 +3,13 @@ package com.yurentsy.watchingyou.mvp.model.entity;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * Created by silan on 29.10.2018.
  */
 
-public class Person {
+public class Person implements Serializable {
 /*"id": 2001,
         "name": "Vladimir",
         "surname": "Putin",

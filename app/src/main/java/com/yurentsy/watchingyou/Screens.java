@@ -43,22 +43,15 @@ public class Screens {
     }
 
     public static final class PersonScreen extends SupportAppScreen {
-        private String name;
-/*        private String surname;
-        private String position;*/
-        private String urlPhoto;
+        private Person person;
 
         public PersonScreen(Person person) {
-            // TODO: 28.10.2018 если нужно в конструктор фрагмента что-то предать
-            this.name=person.getName();
-/*            this.surname=person.getSurname();
-            this.position=person.getPosition();*/
-            this.urlPhoto=person.getUrlPhoto();
+            this.person=person;
         }
 
         @Override
         public Fragment getFragment() {
-            return PersonFragment.getNewInstance(name,urlPhoto);
+            return PersonFragment.getNewInstance(person);
         }
     }
 }
