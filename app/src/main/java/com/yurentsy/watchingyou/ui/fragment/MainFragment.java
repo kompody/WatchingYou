@@ -59,7 +59,7 @@ public class MainFragment extends MvpAppCompatFragment implements MainView, Back
     public void onCreate(Bundle savedInstanceState) {
         App.getInstance().getComponent().inject(this);
         super.onCreate(savedInstanceState);
-        //setHasOptionsMenu(true);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -103,20 +103,20 @@ public class MainFragment extends MvpAppCompatFragment implements MainView, Back
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         ButterKnife.bind(this, view);
 
-        Toolbar toolbar=view.findViewById(R.id.d_toolbar);
-        toolbar.setTitle(R.string.app_name);
-        //прикрутим меню
-        toolbar.inflateMenu(R.menu.fragment_menu);
-        //обработка меню
-        toolbar.setOnMenuItemClickListener(item -> {
-            switch (item.getItemId()) {
-                case R.id.menu_item_setting:
-                    presenter.onClickMenuSetting();
-                    return true;
-                default:
-                    return false;
-            }
-        });
+//        Toolbar toolbar=view.findViewById(R.id.d_toolbar);
+//        toolbar.setTitle(R.string.app_name);
+//        //прикрутим меню
+//        toolbar.inflateMenu(R.menu.fragment_menu);
+//        //обработка меню
+//        toolbar.setOnMenuItemClickListener(item -> {
+//            switch (item.getItemId()) {
+//                case R.id.menu_item_setting:
+//                    presenter.onClickMenuSetting();
+//                    return true;
+//                default:
+//                    return false;
+//            }
+//        });
         return view;
     }
 
