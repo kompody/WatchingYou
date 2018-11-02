@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item
-        android:title="search"
-        android:id="@+id/menu_item_search"
-        android:icon="@drawable/ic_search_white_24dp"
-        app:showAsAction="always"/>
+
+
     <item
         android:title="update"
+        android:orderInCategory="150"
         android:id="@+id/menu_item_update"
         android:icon="@drawable/ic_update_white_24dp"
         app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/action_search"
+        android:icon="@drawable/ic_search_white_24dp"
+        android:orderInCategory="100"
+        android:title="@string/action_search"
+        app:showAsAction="ifRoom"
+        app:actionViewClass="android.support.v7.widget.SearchView" />
     <item
         android:title="setting"
         android:id="@+id/menu_item_setting"

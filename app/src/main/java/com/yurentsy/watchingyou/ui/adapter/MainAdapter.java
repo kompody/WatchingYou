@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,7 +15,10 @@ import com.yurentsy.watchingyou.R;
 import com.yurentsy.watchingyou.mvp.model.entity.Person;
 import com.yurentsy.watchingyou.mvp.presenter.MainPresenter;
 
-public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> {
+import java.util.ArrayList;
+import java.util.List;
+
+public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> implements Filterable {
     private MainPresenter presenter;
 
     public MainAdapter(MainPresenter presenter) {
@@ -39,6 +44,43 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
     public int getItemCount() {
         return presenter.getPersoneSize();
     }
+
+    @Override
+    public Filter getFilter() {
+        return exampleFilter;
+    }
+
+    private Filter exampleFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<Person> filteredList = new ArrayList<>();
+
+            if (constraint == null || constraint.length() == 0) {
+                filteredList.addAll(presenter.getPeople());
+            } else {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+
+                for (Person person : presenter.getPeople()) {
+                    if (person.getName().toLowerCase().contains(filterPattern) || person.getSurname().toLowerCase().contains(filterPattern)) {
+                        filteredList.add(person);
+                    }
+                }
+            }
+
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            presenter.getPeople().clear();
+            presenter.setPeople((List) results.values);
+            notifyDataSetChanged();
+            presenter.updatePersons();
+        }
+    };
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private ImageView ivPersonPhoto;
