@@ -10,6 +10,20 @@
         style="@style/MainToolbar"
         app:title="@string/app_name" />
 
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp">
+
+        <TextView
+            android:id="@+id/info_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="info status"
+            android:textSize="15sp" />
+
+    </android.support.v7.widget.CardView>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_main"
         android:layout_width="match_parent"
