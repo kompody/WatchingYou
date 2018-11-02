@@ -11,6 +11,6 @@
     <string name="person">Person</string>
     <string name="action_search">Search</string>
     <string name="name_surname">Ф.И.О</string>
-    <string name="btn_card_come">Пришел</string>
-    <string name="btn_card_away">Ушел</string>
+    <string name="btn_card_come">Приход</string>
+    <string name="btn_card_away">Уход</string>
 </resources>
