@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.TextView;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -121,5 +122,17 @@ public class MainFragment extends MvpAppCompatFragment implements MainView, Back
     public void updateList() {
         adapter.notifyDataSetChanged();
     }
+
+    @BindView(R.id.info_status)
+    TextView infoStatus;
+
+    @Override
+    public void showInfoStatus(int online, int offline) {
+        infoStatus.setText(String.format("ОНЛАЙН : %d , ОФЛАЙН : %d",online,offline));
+    }
+
+
+
+
 
 }
