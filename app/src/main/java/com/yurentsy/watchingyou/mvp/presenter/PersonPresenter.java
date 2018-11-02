@@ -5,9 +5,8 @@ import android.annotation.SuppressLint;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.yurentsy.watchingyou.mvp.model.entity.Person;
+import com.yurentsy.watchingyou.mvp.model.repo.Repo;
 import com.yurentsy.watchingyou.mvp.view.PersonView;
-
-import java.io.Serializable;
 
 import io.reactivex.Scheduler;
 import ru.terrakok.cicerone.Router;
@@ -17,20 +16,15 @@ public class PersonPresenter extends MvpPresenter<PersonView> {
 
     private Scheduler scheduler;
     private Router router;
+    private Repo repo;
+    private Person person;
 
     @SuppressLint("CheckResult")
-    public PersonPresenter(Scheduler scheduler, Router router, Person person) {
+    public PersonPresenter(Scheduler scheduler, Router router, Repo repo, Person person) {
         this.scheduler = scheduler;
         this.router = router;
-
-/*        getViewState().setName(person.getName());
-        getViewState().setUrlPhoto(person.getUrlPhoto());
-        getViewState().setSurname(person.getSurname());
-        getViewState().setAddress(person.getAddress());
-        getViewState().setEmail(person.getEmail());
-        getViewState().setPhone(person.getNumber());
-        getViewState().setPosition(person.getPosition());*/
-
+        this.repo = repo;
+        this.person = person;
         getViewState().setCard(person);
     }
 
@@ -44,4 +38,14 @@ public class PersonPresenter extends MvpPresenter<PersonView> {
         router.exit();
     }
 
+    public void onClickButtonCome() {
+        person.setOnline(!person.isOnline());
+        repo.updatePerson(person);
+    }
+
+    public void onClickButtonAway() {
+        //временно дублирует код onClickButtonCome
+        person.setOnline(!person.isOnline());
+        repo.updatePerson(person);
+    }
 }
