@@ -50,8 +50,8 @@ public class MainPresenter extends MvpPresenter<MainView> {
     public void updatePersons(){
         repo.getPersons()
                 .observeOn(scheduler)
-                .subscribe(p -> {
-                    people=p;
+                .subscribe(personList -> {
+                    people=personList;
                 });
     }
 
@@ -59,14 +59,6 @@ public class MainPresenter extends MvpPresenter<MainView> {
     protected void onFirstViewAttach() {
         super.onFirstViewAttach();
         getViewState().init();
-    }
-
-    public  void updatePersons(){
-        repo.getPersons()
-                .observeOn(scheduler)
-                .subscribe(persones ->{
-                    people = persones;
-                });
     }
 
     public void onBackPressed() {

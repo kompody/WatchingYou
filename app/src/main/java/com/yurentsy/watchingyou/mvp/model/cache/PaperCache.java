@@ -13,36 +13,34 @@ import io.reactivex.Observable;
  */
 
 public class PaperCache implements Cache {
-    private final String BASE_KEY="paper_key";
+    private final String BASE_KEY = "paper_key";
 
     @Override
     public void put(Person person) {
-        List<Person> list=Paper.book().read(BASE_KEY);
-        if(list==null){
-            list=new ArrayList<>();
+        List<Person> list = Paper.book().read(BASE_KEY);
+        if (list == null) {
+            list = new ArrayList<>();
         }
         list.add(person);
-        Paper.book().write(BASE_KEY,list);
+        Paper.book().write(BASE_KEY, list);
     }
 
     @Override
     public void putAll(List<Person> list) {
-        Paper.book().write(BASE_KEY,list);
+        Paper.book().write(BASE_KEY, list);
     }
 
     @Override
     public Observable<Person> getPersonById(String id) {
         return Observable.just(id)
-                .map(i->{
+                .map(i -> {
                     //Читаем данные
-                    List<Person> list=Paper.book().read(BASE_KEY);
-
-
-                    if(list==null){
-                        list=new ArrayList<>();
+                    List<Person> list = Paper.book().read(BASE_KEY);
+                    if (list == null) {
+                        list = new ArrayList<>();
                     }
-                    Person p=list.get(Integer.parseInt(i));
-                    if(list.equals(p)){
+                    Person p = list.get(Integer.parseInt(i));
+                    if (list.equals(p)) {
                         return p;
                     } else {
                         throw new RuntimeException("There is no such person");
@@ -53,10 +51,10 @@ public class PaperCache implements Cache {
 
     @Override
     public Observable<List<Person>> getPersons() {
-        return Observable.create(e->{
-            List<Person> list=Paper.book().read(BASE_KEY);
-            if(list==null){
-                list=new ArrayList<>();
+        return Observable.create(e -> {
+            List<Person> list = Paper.book().read(BASE_KEY);
+            if (list == null) {
+                list = new ArrayList<>();
             }
             e.onNext(list);
             e.onComplete();
