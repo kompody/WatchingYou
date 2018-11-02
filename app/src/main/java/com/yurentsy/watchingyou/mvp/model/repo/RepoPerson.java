@@ -11,6 +11,7 @@ import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 
 public class RepoPerson implements Repo {
+    private static boolean isReceived = false;
     private ApiService api;
     private Cache cache;
 
@@ -21,12 +22,12 @@ public class RepoPerson implements Repo {
 
     @Override
     public Observable<List<Person>> getPersons() {
-        if (NetworkStatus.isOnline()) {
+        if (NetworkStatus.isOnline() && !isReceived) {
             return api.getPersons().subscribeOn(Schedulers.io())
                     .doOnNext(list -> {
                         cache.putAll(list);
+                        isReceived = true;
                     });
-            //return api.getPersons().subscribeOn(Schedulers.io());
         } else {
             return cache.getPersons().subscribeOn(Schedulers.io());
         }
