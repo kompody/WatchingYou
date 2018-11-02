@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Scheduler;
+import io.reactivex.schedulers.Schedulers;
 import ru.terrakok.cicerone.Router;
 
 @InjectViewState
@@ -31,10 +32,12 @@ public class MainPresenter extends MvpPresenter<MainView> {
         this.repo = repo;
 
         repo.getPersons()
+                .subscribeOn(Schedulers.io())
                 .observeOn(scheduler)
                 .subscribe(personList -> {
                     people = personList;
                     getViewState().updateList();
+                    updateStatusInfo();
                 });
     }
 
@@ -48,6 +51,7 @@ public class MainPresenter extends MvpPresenter<MainView> {
 
     public void updatePersons() {
         repo.getPersons()
+                .subscribeOn(Schedulers.io())
                 .observeOn(scheduler)
                 .subscribe(personList -> {
                     people = personList;
@@ -66,6 +70,9 @@ public class MainPresenter extends MvpPresenter<MainView> {
 
     public void bindViewHolder(MainAdapter.MyViewHolder holder, int position) {
         holder.bind(people.get(position));
+        if(people.get(position).isOnline()){
+            updateStatusInfo();
+        }
     }
 
     public int getPersoneSize() {
@@ -78,5 +85,20 @@ public class MainPresenter extends MvpPresenter<MainView> {
 
     public void onClickPerson(int position) {
         router.navigateTo(new Screens.PersonScreen(people.get(position)));
+    }
+
+    public void updateStatusInfo() {
+        int onlinePeople=getCountPersonOnline(people);
+        getViewState().showInfoStatus(onlinePeople,people.size()-onlinePeople);
+    }
+
+    private int getCountPersonOnline(List<Person> personList) {
+        int count = 0;
+        for (Person person : personList) {
+            if (person.isOnline()) {
+                count++;
+            }
+        }
+        return count;
     }
 }
