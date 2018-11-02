@@ -39,12 +39,6 @@ public class PersonFragment extends MvpAppCompatFragment implements PersonView, 
     PersonPresenter presenter;
     @BindView(R.id.card_name)
     TextView name;
-    @BindView(R.id.card_surname)
-    TextView surname;
-    @BindView(R.id.card_adress)
-    TextView address;
-    @BindView(R.id.card_email)
-    TextView email;
     @BindView(R.id.card_phone)
     TextView phone;
     @BindView(R.id.card_position)
@@ -105,15 +99,11 @@ public class PersonFragment extends MvpAppCompatFragment implements PersonView, 
 
     @Override
     public void setCard(Person p) {
-        name.setText(p.getName());
-        surname.setText(p.getSurname());
-        address.setText(p.getAddress());
-        email.setText(p.getEmail());
-        phone.setText(p.getNumber());
-        position.setText(p.getPosition());
+        name.setText(String.format("%s:\n%s %s", name.getText(), p.getName(), p.getSurname()));
+        phone.setText(String.format("%s:\n%s", phone.getText(), p.getNumber()));
+        position.setText(String.format("%s:\n%s", position.getText(), p.getPosition()));
         Picasso.get()
                 .load(p.getUrlPhoto())
                 .into(photo);
     }
-
 }
