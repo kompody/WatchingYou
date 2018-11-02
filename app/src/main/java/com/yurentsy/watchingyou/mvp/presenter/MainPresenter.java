@@ -22,15 +22,6 @@ public class MainPresenter extends MvpPresenter<MainView> {
     private Scheduler scheduler;
     private Router router;
     private Repo repo;
-
-    public void setPeople(List<Person> people) {
-        this.people = people;
-    }
-
-    public List<Person> getPeople() {
-        return people;
-    }
-
     private List<Person> people = new ArrayList<>();
 
     @SuppressLint("CheckResult")
@@ -41,17 +32,25 @@ public class MainPresenter extends MvpPresenter<MainView> {
 
         repo.getPersons()
                 .observeOn(scheduler)
-                .subscribe((List<Person> persones) -> {
-                    people.addAll(persones);
+                .subscribe(personList -> {
+                    people = personList;
                     getViewState().updateList();
                 });
     }
 
-    public void updatePersons(){
+    public List<Person> getPeople() {
+        return people;
+    }
+
+    public void setPeople(List<Person> people) {
+        this.people = people;
+    }
+
+    public void updatePersons() {
         repo.getPersons()
                 .observeOn(scheduler)
                 .subscribe(personList -> {
-                    people=personList;
+                    people = personList;
                 });
     }
 

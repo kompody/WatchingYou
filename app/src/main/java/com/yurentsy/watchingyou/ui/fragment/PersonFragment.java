@@ -37,6 +37,20 @@ public class PersonFragment extends MvpAppCompatFragment implements PersonView, 
 
     @InjectPresenter
     PersonPresenter presenter;
+    @BindView(R.id.card_name)
+    TextView name;
+    @BindView(R.id.card_surname)
+    TextView surname;
+    @BindView(R.id.card_adress)
+    TextView address;
+    @BindView(R.id.card_email)
+    TextView email;
+    @BindView(R.id.card_phone)
+    TextView phone;
+    @BindView(R.id.card_position)
+    TextView position;
+    @BindView(R.id.photo)
+    ImageView photo;
 
     public static PersonFragment getNewInstance(Person person) {
         PersonFragment fragment = new PersonFragment();
@@ -56,13 +70,7 @@ public class PersonFragment extends MvpAppCompatFragment implements PersonView, 
     public void onCreate(Bundle savedInstanceState) {
         App.getInstance().getComponent().inject(this);
         super.onCreate(savedInstanceState);
-        /*ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        actionBar.setTitle(R.string.person);
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeButtonEnabled(true);
-        setHasOptionsMenu(true);*/
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -79,7 +87,7 @@ public class PersonFragment extends MvpAppCompatFragment implements PersonView, 
         View view = inflater.inflate(R.layout.fragment_card, container, false);
         ButterKnife.bind(this, view);
         //настройки toolbar
-        Toolbar toolbar=view.findViewById(R.id.toolbar);
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
         toolbar.setNavigationOnClickListener(view1 -> onBackPressed());
         return view;
     }
@@ -94,22 +102,6 @@ public class PersonFragment extends MvpAppCompatFragment implements PersonView, 
     public void init() {
         //init
     }
-
-    @BindView(R.id.card_name)
-    TextView name;
-    @BindView(R.id.card_surname)
-    TextView surname;
-    @BindView(R.id.card_adress)
-    TextView address;
-    @BindView(R.id.card_email)
-    TextView email;
-    @BindView(R.id.card_phone)
-    TextView phone;
-    @BindView(R.id.card_position)
-    TextView position;
-    @BindView(R.id.photo)
-    ImageView photo;
-
 
     @Override
     public void setCard(Person p) {
