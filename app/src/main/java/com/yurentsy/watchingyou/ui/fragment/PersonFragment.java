@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,6 +19,7 @@ import com.squareup.picasso.Picasso;
 import com.yurentsy.watchingyou.App;
 import com.yurentsy.watchingyou.R;
 import com.yurentsy.watchingyou.mvp.model.entity.Person;
+import com.yurentsy.watchingyou.mvp.model.repo.Repo;
 import com.yurentsy.watchingyou.mvp.presenter.PersonPresenter;
 import com.yurentsy.watchingyou.mvp.view.PersonView;
 import com.yurentsy.watchingyou.ui.common.BackButtonListener;
@@ -26,11 +28,15 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import ru.terrakok.cicerone.Router;
 
 public class PersonFragment extends MvpAppCompatFragment implements PersonView, BackButtonListener {
     private static final String KEY_PERSON = "person";
+
+    @Inject
+    Repo repo;
 
     @Inject
     Router router;
@@ -43,21 +49,21 @@ public class PersonFragment extends MvpAppCompatFragment implements PersonView, 
     TextView phone;
     @BindView(R.id.card_position)
     TextView position;
-    @BindView(R.id.photo)
+    @BindView(R.id.card_photo)
     ImageView photo;
 
     public static PersonFragment getNewInstance(Person person) {
         PersonFragment fragment = new PersonFragment();
         //если все же что-то добавил то fragment.setArguments(bundle)
         Bundle b = new Bundle();
-        b.putSerializable(KEY_PERSON, (Person) person);
+        b.putSerializable(KEY_PERSON, person);
         fragment.setArguments(b);
         return fragment;
     }
 
     @ProvidePresenter
     public PersonPresenter provideGeneralPresenter() {
-        return new PersonPresenter(AndroidSchedulers.mainThread(), router, (Person) getArguments().getSerializable(KEY_PERSON));
+        return new PersonPresenter(AndroidSchedulers.mainThread(), router, repo, (Person) getArguments().getSerializable(KEY_PERSON));
     }
 
     @Override
@@ -105,5 +111,34 @@ public class PersonFragment extends MvpAppCompatFragment implements PersonView, 
         Picasso.get()
                 .load(p.getUrlPhoto())
                 .into(photo);
+        hideButtons(p.isOnline());
     }
+
+
+    @OnClick({R.id.button_come, R.id.button_away})
+    void onClickButton(Button b) {
+        switch (b.getId()) {
+            case R.id.button_come: {
+                hideButtons(true);
+                presenter.onClickButtonCome();
+                break;
+            }
+            case R.id.button_away: {
+                hideButtons(false);
+                presenter.onClickButtonAway();
+                break;
+            }
+        }
+    }
+
+    @BindView(R.id.button_come)
+    Button buttonCome;
+    @BindView(R.id.button_away)
+    Button buttonAway;
+
+    private void hideButtons(boolean flag) {
+        buttonCome.setEnabled(!flag);
+        buttonAway.setEnabled(flag);
+    }
+
 }
