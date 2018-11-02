@@ -59,7 +59,7 @@ public class MainFragment extends MvpAppCompatFragment implements MainView, Back
     public void onCreate(Bundle savedInstanceState) {
         App.getInstance().getComponent().inject(this);
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
+        //setHasOptionsMenu(true);
     }
 
     @Override

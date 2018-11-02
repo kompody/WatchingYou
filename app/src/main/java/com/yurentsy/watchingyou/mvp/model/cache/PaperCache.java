@@ -36,6 +36,8 @@ public class PaperCache implements Cache {
                 .map(i->{
                     //Читаем данные
                     List<Person> list=Paper.book().read(BASE_KEY);
+
+
                     if(list==null){
                         list=new ArrayList<>();
                     }

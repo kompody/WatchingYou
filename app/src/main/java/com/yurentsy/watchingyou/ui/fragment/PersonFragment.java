@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,6 +60,9 @@ public class PersonFragment extends MvpAppCompatFragment implements PersonView,B
     public void onCreate(Bundle savedInstanceState) {
         App.getInstance().getComponent().inject(this);
         super.onCreate(savedInstanceState);
+        ActionBar actionBar=((AppCompatActivity)getActivity()).getSupportActionBar();
+        actionBar.setTitle(R.string.person);
+        actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
 
@@ -67,11 +72,11 @@ public class PersonFragment extends MvpAppCompatFragment implements PersonView,B
         View view = inflater.inflate(R.layout.fragment_card, container, false);
         ButterKnife.bind(this, view);
 
-        Toolbar toolbar=view.findViewById(R.id.d_toolbar);
+       /* Toolbar toolbar=view.findViewById(R.id.d_toolbar);
         toolbar.setTitle(R.string.person);
         toolbar.setNavigationOnClickListener(item->{
             onBackPressed();
-        });
+        });*/
         return view;
     }
 

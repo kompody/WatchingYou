@@ -61,7 +61,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
                 String filterPattern = constraint.toString().toLowerCase().trim();
 
                 for (Person person : presenter.getPeople()) {
-                    if (person.getSurname().toLowerCase().contains(filterPattern)) {
+                    if (person.getName().toLowerCase().contains(filterPattern) || person.getSurname().toLowerCase().contains(filterPattern)) {
                         filteredList.add(person);
                     }
                 }
@@ -82,7 +82,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
         }
     };
 
-    public  class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder {
         private ImageView ivPersonPhoto;
         private TextView tvName;
         private TextView tvPosition;
@@ -94,7 +94,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
             tvPosition = itemView.findViewById(R.id.tv_position);
         }
 
-        public  void bind(Person person) {
+        public void bind(Person person) {
             Picasso.get()
                     .load(person.getUrlPhoto())
                     .placeholder(R.drawable.ic_autorenew_black_24dp)

@@ -47,6 +47,14 @@ public class MainPresenter extends MvpPresenter<MainView> {
                 });
     }
 
+    public void updatePersons(){
+        repo.getPersons()
+                .observeOn(scheduler)
+                .subscribe(p -> {
+                    people=p;
+                });
+    }
+
     @Override
     protected void onFirstViewAttach() {
         super.onFirstViewAttach();
