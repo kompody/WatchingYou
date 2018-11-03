@@ -49,12 +49,15 @@ public class MainPresenter extends MvpPresenter<MainView> {
         this.people = people;
     }
 
+    @SuppressLint("CheckResult")
     public void updatePersons() {
         repo.getPersons()
                 .subscribeOn(Schedulers.io())
                 .observeOn(scheduler)
                 .subscribe(personList -> {
                     people = personList;
+                    getViewState().updateList();
+                    updateStatusInfo();
                 });
     }
 
@@ -70,7 +73,7 @@ public class MainPresenter extends MvpPresenter<MainView> {
 
     public void bindViewHolder(MainAdapter.MyViewHolder holder, int position) {
         holder.bind(people.get(position));
-        if(people.get(position).isOnline()){
+        if (people.get(position).isOnline()) {
             updateStatusInfo();
         }
     }
@@ -87,9 +90,9 @@ public class MainPresenter extends MvpPresenter<MainView> {
         router.navigateTo(new Screens.PersonScreen(people.get(position)));
     }
 
-    public void updateStatusInfo() {
-        int onlinePeople=getCountPersonOnline(people);
-        getViewState().showInfoStatus(onlinePeople,people.size()-onlinePeople);
+    private void updateStatusInfo() {
+        int onlinePeople = getCountPersonOnline(people);
+        getViewState().showInfoStatus(onlinePeople, people.size() - onlinePeople);
     }
 
     private int getCountPersonOnline(List<Person> personList) {
