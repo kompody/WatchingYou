@@ -45,7 +45,6 @@ public class MainFragment extends MvpAppCompatFragment implements MainView, Back
 
     public static MainFragment getNewInstance() {
         MainFragment fragment = new MainFragment();
-        //если все же что-то добавил то fragment.setArguments(bundle)
         return fragment;
     }
 
@@ -76,7 +75,6 @@ public class MainFragment extends MvpAppCompatFragment implements MainView, Back
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         ButterKnife.bind(this, view);
-        //настройки toolbar
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         toolbar.setNavigationOnClickListener(view1 -> onBackPressed());
         toolbar.inflateMenu(R.menu.fragment_menu);
@@ -92,7 +90,8 @@ public class MainFragment extends MvpAppCompatFragment implements MainView, Back
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                adapter.getFilter().filter(newText);
+                if (adapter != null)
+                    adapter.getFilter().filter(newText);
                 return false;
             }
         });
@@ -128,11 +127,7 @@ public class MainFragment extends MvpAppCompatFragment implements MainView, Back
 
     @Override
     public void showInfoStatus(int online, int offline) {
-        infoStatus.setText(String.format("ОНЛАЙН : %d , ОФЛАЙН : %d",online,offline));
+        infoStatus.setText(String.format("ОНЛАЙН : %d , ОФЛАЙН : %d", online, offline));
     }
-
-
-
-
 
 }
