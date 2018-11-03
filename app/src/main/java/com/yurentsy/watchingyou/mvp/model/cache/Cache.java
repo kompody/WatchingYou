@@ -14,4 +14,6 @@ public interface Cache {
     Observable<Person> getPersonById(String id);
 
     Observable<List<Person>> getPersons();
+
+    void updatePerson(Person person);
 }

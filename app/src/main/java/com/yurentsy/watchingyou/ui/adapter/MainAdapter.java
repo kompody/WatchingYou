@@ -35,7 +35,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
         presenter.bindViewHolder(holder, position);
-        holder.itemView.setOnClickListener(item->{
+        holder.itemView.setOnClickListener(item -> {
             presenter.onClickPerson(position);
         });
     }
@@ -83,15 +83,17 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
     };
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        private ImageView ivPersonPhoto;
-        private TextView tvName;
-        private TextView tvPosition;
+        private ImageView photo;
+        private TextView name;
+        private TextView position;
+        private ImageView status;
 
         MyViewHolder(final View itemView) {
             super(itemView);
-            ivPersonPhoto = itemView.findViewById(R.id.iv_photo_small);
-            tvName = itemView.findViewById(R.id.tv_name);
-            tvPosition = itemView.findViewById(R.id.tv_position);
+            photo = itemView.findViewById(R.id.iv_photo_small);
+            name = itemView.findViewById(R.id.tv_name);
+            position = itemView.findViewById(R.id.tv_position);
+            status = itemView.findViewById(R.id.iv_status);
         }
 
         public void bind(Person person) {
@@ -99,9 +101,14 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
                     .load(person.getUrlPhoto())
                     .placeholder(R.drawable.ic_autorenew_black_24dp)
                     .error(R.drawable.ic_crop_original_black_24dp)
-                    .into(ivPersonPhoto);
-            tvName.setText(person.getName() + " " + person.getSurname());
-            tvPosition.setText(person.getPosition());
+                    .into(photo);
+            if (person.isOnline())
+                status.setImageResource(R.drawable.ic_status_online);
+            else
+                status.setImageResource(R.drawable.ic_status_offline);
+
+            name.setText(String.format("%s %s", person.getName(), person.getSurname()));
+            position.setText(person.getPosition());
         }
 
     }

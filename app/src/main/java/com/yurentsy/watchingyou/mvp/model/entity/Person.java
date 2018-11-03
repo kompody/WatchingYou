@@ -10,14 +10,14 @@ import java.io.Serializable;
  */
 
 public class Person implements Serializable {
-/*"id": 2001,
-        "name": "Vladimir",
-        "surname": "Putin",
-        "position": "Managing director",
-        "number": "305-701-2307",
-        "email": "v.putin@world.io",
-        "address": "98 Shinn Street",
-        "urlPhoto": "https://www.worldpresidentsdb.com/images/presidents/vladimir-putin.jpg"*/
+    /*"id": 2001,
+            "name": "Vladimir",
+            "surname": "Putin",
+            "position": "Managing director",
+            "number": "305-701-2307",
+            "email": "v.putin@world.io",
+            "address": "98 Shinn Street",
+            "urlPhoto": "https://www.worldpresidentsdb.com/images/presidents/vladimir-putin.jpg"*/
     @SerializedName("id")
     @Expose
     private String id;
@@ -94,5 +94,22 @@ public class Person implements Serializable {
 
     public String getAddress() {
         return address;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof Person)) return false;
+        return this.id.equals(((Person) obj).getId());
+    }
+
+    private boolean isOnline=false;
+
+    public boolean isOnline() {
+        return isOnline;
+    }
+
+    public void setOnline(boolean online) {
+        isOnline = online;
     }
 }

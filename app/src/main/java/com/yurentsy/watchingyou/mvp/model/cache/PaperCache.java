@@ -60,4 +60,14 @@ public class PaperCache implements Cache {
             e.onComplete();
         });
     }
+
+    @Override
+    public void updatePerson(Person person) {
+        List<Person> list = Paper.book().read(BASE_KEY);
+        if (list == null) {
+            return;
+        }
+        list.set(list.indexOf(person),person);
+        Paper.book().write(BASE_KEY,list);
+    }
 }

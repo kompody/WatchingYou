@@ -14,7 +14,7 @@
         app:title="@string/person" />
 
     <ImageView
-        android:id="@+id/photo"
+        android:id="@+id/card_photo"
         android:layout_width="260dp"
         android:layout_height="260dp"
         android:layout_marginStart="8dp"
@@ -45,7 +45,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/photo" />
+        app:layout_constraintTop_toBottomOf="@+id/card_photo" />
 
     <TextView
         android:id="@+id/card_phone"
@@ -76,7 +76,7 @@
         app:layout_constraintTop_toBottomOf="@+id/card_name" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/button_come"
         android:layout_width="120dp"
         android:layout_height="60dp"
         android:layout_marginStart="45dp"
@@ -86,7 +86,7 @@
         app:layout_constraintTop_toBottomOf="@+id/card_phone" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/button_away"
         android:layout_width="120dp"
         android:layout_height="60dp"
         android:layout_marginTop="32dp"

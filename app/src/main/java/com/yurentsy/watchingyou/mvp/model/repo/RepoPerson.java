@@ -8,7 +8,6 @@ import com.yurentsy.watchingyou.mvp.model.entity.Person;
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.schedulers.Schedulers;
 
 public class RepoPerson implements Repo {
     private static boolean isReceived = false;
@@ -23,18 +22,18 @@ public class RepoPerson implements Repo {
     @Override
     public Observable<List<Person>> getPersons() {
         if (NetworkStatus.isOnline() && !isReceived) {
-            return api.getPersons().subscribeOn(Schedulers.io())
+            return api.getPersons()
                     .doOnNext(list -> {
                         cache.putAll(list);
                         isReceived = true;
                     });
         } else {
-            return cache.getPersons().subscribeOn(Schedulers.io());
+            return cache.getPersons();
         }
     }
 
     @Override
-    public Observable<Person> getPersonById(String id) {
-        return null;
+    public void updatePerson(Person person) {
+        cache.updatePerson(person);
     }
 }
