@@ -126,8 +126,8 @@ public class MainFragment extends MvpAppCompatFragment implements MainView, Back
     TextView infoStatus;
 
     @Override
-    public void showInfoStatus(int online, int offline) {
-        infoStatus.setText(String.format("ОНЛАЙН : %d , ОФЛАЙН : %d", online, offline));
+    public void showInfoStatus(int countInJob, int countOutJob) {
+        infoStatus.setText(String.format(getString(R.string.status_title), countInJob, countOutJob));
     }
 
 }

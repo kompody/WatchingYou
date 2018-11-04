@@ -18,6 +18,9 @@ import com.yurentsy.watchingyou.mvp.presenter.MainPresenter;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> implements Filterable {
     private MainPresenter presenter;
 
@@ -32,24 +35,6 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
         return new MyViewHolder(rootView);
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
-        presenter.bindViewHolder(holder, position);
-        holder.itemView.setOnClickListener(item -> {
-            presenter.onClickPerson(position);
-        });
-    }
-
-    @Override
-    public int getItemCount() {
-        return presenter.getPersoneSize();
-    }
-
-    @Override
-    public Filter getFilter() {
-        return exampleFilter;
-    }
-
     private Filter exampleFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
@@ -61,7 +46,9 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
                 String filterPattern = constraint.toString().toLowerCase().trim();
 
                 for (Person person : presenter.getPeople()) {
-                    if (person.getName().toLowerCase().contains(filterPattern) || person.getSurname().toLowerCase().contains(filterPattern)) {
+                    if ((person.getName() + person.getSurname()).toLowerCase().startsWith(filterPattern) ||
+                            (person.getName() + " " + person.getSurname()).toLowerCase().startsWith(filterPattern)
+                            || person.getSurname().toLowerCase().startsWith(filterPattern)) {
                         filteredList.add(person);
                     }
                 }
@@ -74,26 +61,42 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
         }
 
         @Override
+        @SuppressWarnings("unchecked")
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            presenter.getPeople().clear();
-            presenter.setPeople((List) results.values);
+            presenter.setPeople((List<Person>) results.values);
             notifyDataSetChanged();
-            presenter.updatePersons();
         }
     };
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        private ImageView photo;
-        private TextView name;
-        private TextView position;
-        private ImageView status;
+    @Override
+    public int getItemCount() {
+        return presenter.getPersoneSize();
+    }
 
-        MyViewHolder(final View itemView) {
+    @Override
+    public Filter getFilter() {
+        return exampleFilter;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
+        presenter.bindViewHolder(holder, position);
+        holder.setOnClickListener(item -> presenter.onClickPerson(position));
+    }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.iv_photo_small)
+        ImageView photo;
+        @BindView(R.id.tv_name)
+        TextView name;
+        @BindView(R.id.tv_position)
+        TextView position;
+        @BindView(R.id.iv_status)
+        ImageView status;
+
+        MyViewHolder(View itemView) {
             super(itemView);
-            photo = itemView.findViewById(R.id.iv_photo_small);
-            name = itemView.findViewById(R.id.tv_name);
-            position = itemView.findViewById(R.id.tv_position);
-            status = itemView.findViewById(R.id.iv_status);
+            ButterKnife.bind(this, itemView);
         }
 
         public void bind(Person person) {
@@ -102,7 +105,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
                     .placeholder(R.drawable.ic_autorenew_black_24dp)
                     .error(R.drawable.ic_crop_original_black_24dp)
                     .into(photo);
-            if (person.isOnline())
+            if (person.isWorking())
                 status.setImageResource(R.drawable.ic_status_online);
             else
                 status.setImageResource(R.drawable.ic_status_offline);
@@ -111,6 +114,9 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
             position.setText(person.getPosition());
         }
 
+        public void setOnClickListener(View.OnClickListener listener) {
+            itemView.setOnClickListener(listener);
+        }
     }
 }
 

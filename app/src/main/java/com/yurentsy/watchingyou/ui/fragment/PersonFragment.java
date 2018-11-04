@@ -111,7 +111,7 @@ public class PersonFragment extends MvpAppCompatFragment implements PersonView, 
         Picasso.get()
                 .load(p.getUrlPhoto())
                 .into(photo);
-        hideButtons(p.isOnline());
+        hideButtons(p.isWorking());
     }
 
 

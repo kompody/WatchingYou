@@ -69,16 +69,13 @@ public class Person implements Serializable {
         return name;
     }
 
-
     public String getSurname() {
         return surname;
     }
 
-
     public String getPosition() {
         return position;
     }
-
 
     public String getUrlPhoto() {
         return urlPhoto;
@@ -103,13 +100,13 @@ public class Person implements Serializable {
         return this.id.equals(((Person) obj).getId());
     }
 
-    private boolean isOnline=false;
+    private boolean isWorking = false;
 
-    public boolean isOnline() {
-        return isOnline;
+    public boolean isWorking() {
+        return isWorking;
     }
 
     public void setOnline(boolean online) {
-        isOnline = online;
+        isWorking = online;
     }
 }
