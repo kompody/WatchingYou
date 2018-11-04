@@ -94,4 +94,9 @@ public class MainPresenter extends MvpPresenter<MainView> {
         }
         return count;
     }
+
+    public void updateViews() {
+        getViewState().updateList();
+        updateStatusInfo();
+    }
 }
