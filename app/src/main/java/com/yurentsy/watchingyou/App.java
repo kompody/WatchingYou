@@ -7,6 +7,7 @@ import com.yurentsy.watchingyou.mvp.di.AppComponent;
 import com.yurentsy.watchingyou.mvp.di.DaggerAppComponent;
 
 import io.paperdb.Paper;
+import timber.log.Timber;
 
 public class App extends Application {
     private static App instance;
@@ -28,8 +29,8 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        Timber.plant(new Timber.DebugTree());
         Paper.init(this);
-
         Stetho.initializeWithDefaults(this);
     }
 }
