@@ -24,14 +24,14 @@ public class MainPresenter extends MvpPresenter<MainView> {
     private Router router;
     private Repo repo;
     private List<Person> people = new ArrayList<>();
+    private List<Person> displayedPeople = new ArrayList<>();
 
-    @SuppressLint("CheckResult")
     public MainPresenter(Scheduler scheduler, Router router, Repo repo) {
         this.scheduler = scheduler;
         this.router = router;
         this.repo = repo;
 
-        showPersons();
+        loadPersons();
     }
 
     public List<Person> getPeople() {
@@ -42,13 +42,22 @@ public class MainPresenter extends MvpPresenter<MainView> {
         this.people = people;
     }
 
+    public List<Person> getDisplayedPeople() {
+        return displayedPeople;
+    }
+
+    public void setDisplayedPeople(List<Person> displayedPeople) {
+        this.displayedPeople = displayedPeople;
+    }
+
     @SuppressLint("CheckResult")
-    public void showPersons() {
+    public void loadPersons() {
         repo.getPersons()
                 .subscribeOn(Schedulers.io())
                 .observeOn(scheduler)
                 .subscribe(personList -> {
                     people = personList;
+                    displayedPeople = personList;
                     updateStatusInfo();
                     getViewState().updateList();
                 });
@@ -65,11 +74,11 @@ public class MainPresenter extends MvpPresenter<MainView> {
     }
 
     public void bindViewHolder(MainAdapter.MyViewHolder holder, int position) {
-        holder.bind(people.get(position));
+        holder.bind(displayedPeople.get(position));
     }
 
-    public int getPersoneSize() {
-        return people.size();
+    public int getDisplayedPersoneSize() {
+        return displayedPeople.size();
     }
 
     public void onClickMenuSetting() {
@@ -77,12 +86,12 @@ public class MainPresenter extends MvpPresenter<MainView> {
     }
 
     public void onClickPerson(int position) {
-        router.navigateTo(new Screens.PersonScreen(people.get(position)));
+        router.navigateTo(new Screens.PersonScreen(displayedPeople.get(position)));
     }
 
     private void updateStatusInfo() {
-        int countPersonsInJob = getCountPersonInJob(people);
-        getViewState().showInfoStatus(countPersonsInJob, people.size() - countPersonsInJob);
+        int countPersonsInJob = getCountPersonInJob(displayedPeople);
+        getViewState().showInfoStatus(countPersonsInJob, displayedPeople.size() - countPersonsInJob);
     }
 
     private int getCountPersonInJob(List<Person> personList) {
