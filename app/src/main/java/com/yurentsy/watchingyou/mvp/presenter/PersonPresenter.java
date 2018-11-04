@@ -39,13 +39,13 @@ public class PersonPresenter extends MvpPresenter<PersonView> {
     }
 
     public void onClickButtonCome() {
-        person.setOnline(!person.isOnline());
+        person.setOnline(!person.isWorking());
         repo.updatePerson(person);
     }
 
     public void onClickButtonAway() {
         //временно дублирует код onClickButtonCome
-        person.setOnline(!person.isOnline());
+        person.setOnline(!person.isWorking());
         repo.updatePerson(person);
     }
 }

@@ -31,14 +31,7 @@ public class MainPresenter extends MvpPresenter<MainView> {
         this.router = router;
         this.repo = repo;
 
-        repo.getPersons()
-                .subscribeOn(Schedulers.io())
-                .observeOn(scheduler)
-                .subscribe(personList -> {
-                    people = personList;
-                    getViewState().updateList();
-                    updateStatusInfo();
-                });
+        showPersons();
     }
 
     public List<Person> getPeople() {
@@ -50,14 +43,14 @@ public class MainPresenter extends MvpPresenter<MainView> {
     }
 
     @SuppressLint("CheckResult")
-    public void updatePersons() {
+    public void showPersons() {
         repo.getPersons()
                 .subscribeOn(Schedulers.io())
                 .observeOn(scheduler)
                 .subscribe(personList -> {
                     people = personList;
-                    getViewState().updateList();
                     updateStatusInfo();
+                    getViewState().updateList();
                 });
     }
 
@@ -73,9 +66,6 @@ public class MainPresenter extends MvpPresenter<MainView> {
 
     public void bindViewHolder(MainAdapter.MyViewHolder holder, int position) {
         holder.bind(people.get(position));
-        if (people.get(position).isOnline()) {
-            updateStatusInfo();
-        }
     }
 
     public int getPersoneSize() {
@@ -91,14 +81,14 @@ public class MainPresenter extends MvpPresenter<MainView> {
     }
 
     private void updateStatusInfo() {
-        int onlinePeople = getCountPersonOnline(people);
-        getViewState().showInfoStatus(onlinePeople, people.size() - onlinePeople);
+        int countPersonsInJob = getCountPersonInJob(people);
+        getViewState().showInfoStatus(countPersonsInJob, people.size() - countPersonsInJob);
     }
 
-    private int getCountPersonOnline(List<Person> personList) {
+    private int getCountPersonInJob(List<Person> personList) {
         int count = 0;
         for (Person person : personList) {
-            if (person.isOnline()) {
+            if (person.isWorking()) {
                 count++;
             }
         }

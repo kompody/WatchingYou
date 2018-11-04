@@ -13,4 +13,5 @@
     <string name="name_surname">Ф.И.О</string>
     <string name="btn_card_come">Приход</string>
     <string name="btn_card_away">Уход</string>
+    <string name="status_title">ОНЛАЙН : %d , ОФЛАЙН : %d</string>
 </resources>
