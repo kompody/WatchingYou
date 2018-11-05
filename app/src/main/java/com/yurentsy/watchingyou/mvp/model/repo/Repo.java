@@ -9,5 +9,5 @@ import io.reactivex.Observable;
 public interface Repo {
     Observable<List<Person>> getPersons();
 
-    void updatePerson(Person person);
+    Observable<Boolean> updatePerson(Person person);
 }
