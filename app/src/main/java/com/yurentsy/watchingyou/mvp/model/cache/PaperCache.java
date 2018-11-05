@@ -79,8 +79,10 @@ public class PaperCache implements Cache {
             getIndexPersonById(list, person.getId())
                     .first(-1)
                     .subscribe(index -> {
-                        list.set(index, person);
-                        Paper.book().write(BASE_KEY, list);
+                        if (index >= 0) {
+                            list.set(index, person);
+                            Paper.book().write(BASE_KEY, list);
+                        }
                     });
         }).subscribeOn(Schedulers.computation()).subscribe();
     }
