@@ -65,4 +65,6 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
 
     implementation 'io.paperdb:paperdb:2.6'
+
+    implementation 'com.android.support:design:27.1.1'
 }
