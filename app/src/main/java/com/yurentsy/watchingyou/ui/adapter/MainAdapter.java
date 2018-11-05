@@ -63,14 +63,14 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
         @Override
         @SuppressWarnings("unchecked")
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            presenter.setPeople((List<Person>) results.values);
-            notifyDataSetChanged();
+            presenter.setDisplayedPeople((List<Person>) results.values);
+            presenter.updateViews();
         }
     };
 
     @Override
     public int getItemCount() {
-        return presenter.getPersoneSize();
+        return presenter.getDisplayedPersoneSize();
     }
 
     @Override

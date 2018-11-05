@@ -43,6 +43,7 @@ public class PersonFragment extends MvpAppCompatFragment implements PersonView, 
 
     @InjectPresenter
     PersonPresenter presenter;
+
     @BindView(R.id.card_name)
     TextView name;
     @BindView(R.id.card_phone)
@@ -51,6 +52,10 @@ public class PersonFragment extends MvpAppCompatFragment implements PersonView, 
     TextView position;
     @BindView(R.id.card_photo)
     ImageView photo;
+    @BindView(R.id.button_come)
+    Button buttonCome;
+    @BindView(R.id.button_away)
+    Button buttonAway;
 
     public static PersonFragment getNewInstance(Person person) {
         PersonFragment fragment = new PersonFragment();
@@ -130,11 +135,6 @@ public class PersonFragment extends MvpAppCompatFragment implements PersonView, 
             }
         }
     }
-
-    @BindView(R.id.button_come)
-    Button buttonCome;
-    @BindView(R.id.button_away)
-    Button buttonAway;
 
     private void hideButtons(boolean flag) {
         buttonCome.setEnabled(!flag);

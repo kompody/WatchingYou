@@ -50,6 +50,8 @@ public class Person implements Serializable {
     @Expose
     private String urlPhoto;
 
+    private boolean isWorking;
+
     public Person(String id, String name, String surname, String position, String number, String email, String address, String urlPhoto) {
         this.id = id;
         this.name = name;
@@ -93,20 +95,18 @@ public class Person implements Serializable {
         return address;
     }
 
+    public boolean isWorking() {
+        return isWorking;
+    }
+
+    public void setOnline(boolean isWork) {
+        isWorking = isWork;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (!(obj instanceof Person)) return false;
         return this.id.equals(((Person) obj).getId());
-    }
-
-    private boolean isWorking = false;
-
-    public boolean isWorking() {
-        return isWorking;
-    }
-
-    public void setOnline(boolean online) {
-        isWorking = online;
     }
 }
