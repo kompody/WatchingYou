@@ -29,14 +29,14 @@ public class PaperCache implements Cache {
             }
             list.add(person);
             Paper.book().write(BASE_KEY, list);
-        }).subscribeOn(Schedulers.computation()).subscribe();
+        }).subscribeOn(Schedulers.io()).subscribe();
     }
 
     @SuppressLint("CheckResult")
     @Override
     public void putAll(List<Person> list) {
         Completable.fromAction(() -> Paper.book().write(BASE_KEY, list))
-                .subscribeOn(Schedulers.computation()).subscribe();
+                .subscribeOn(Schedulers.io()).subscribe();
     }
 
     @Override
@@ -84,7 +84,7 @@ public class PaperCache implements Cache {
                             Paper.book().write(BASE_KEY, list);
                         }
                     });
-        }).subscribeOn(Schedulers.computation()).subscribe();
+        }).subscribeOn(Schedulers.io()).subscribe();
     }
 
     private Observable<Integer> getIndexPersonById(List<Person> people, String personId) {
