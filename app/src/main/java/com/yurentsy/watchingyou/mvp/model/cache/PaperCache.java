@@ -31,14 +31,14 @@ public class PaperCache implements Cache {
             }
             list.add(person);
             Paper.book().write(BASE_KEY, list);
-        }).subscribeOn(Schedulers.io()).subscribe();
+        }).subscribeOn(Schedulers.io());
     }
 
     @SuppressLint("CheckResult")
     @Override
     public void putAll(List<Person> list) {
         Completable.fromAction(() -> Paper.book().write(BASE_KEY, list))
-                .subscribeOn(Schedulers.io()).subscribe();
+                .subscribeOn(Schedulers.io());
     }
 
     @Override
