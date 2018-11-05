@@ -9,10 +9,10 @@
     <string name="position">Должность</string>
     <string name="email">email</string>
     <string name="setting">Настройки</string>
-    <string name="person">Человек</string>
+    <string name="person">Сотрудник</string>
     <string name="action_search">Поиск</string>
     <string name="name_surname">Ф.И.О</string>
     <string name="btn_card_come">Пришел</string>
     <string name="btn_card_away">Ушел</string>
-    <string name="status_title">ОНЛАЙН : %d , ОФЛАЙН : %d</string>
+    <string name="status_title">На работе : %d , Отсутствуют : %d</string>
 </resources>
