@@ -127,7 +127,7 @@ public class MainFragment extends MvpAppCompatFragment implements MainView, Back
 
     @Override
     public void showInfoStatus(int countInJob, int countOutJob) {
-        infoStatus.setText(String.format(getString(R.string.status_title), countInJob, countOutJob));
+        infoStatus.setText(String.format(getString(R.string.info_status_title), countInJob, countOutJob));
     }
 
 }
