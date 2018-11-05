@@ -6,9 +6,9 @@
     <string name="phone">Phone</string>
     <string name="address">Address</string>
     <string name="position">Position</string>
-    <string name="email">email</string>
+    <string name="email">Email</string>
     <string name="setting">Setting</string>
-    <string name="person">Person</string>
+    <string name="person">Employee</string>
     <string name="action_search">Search</string>
     <string name="name_surname">Full name</string>
     <string name="btn_card_come">Has come</string>
