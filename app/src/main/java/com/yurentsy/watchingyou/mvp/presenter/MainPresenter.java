@@ -1,7 +1,5 @@
 package com.yurentsy.watchingyou.mvp.presenter;
 
-import android.annotation.SuppressLint;
-
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.yurentsy.watchingyou.Screens;
@@ -50,8 +48,7 @@ public class MainPresenter extends MvpPresenter<MainView> {
         this.displayedPeople = displayedPeople;
     }
 
-    @SuppressLint("CheckResult")
-    public void loadPersons() {
+    private void loadPersons() {
         repo.getPersons()
                 .subscribeOn(Schedulers.io())
                 .observeOn(scheduler)
