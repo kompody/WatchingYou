@@ -9,7 +9,9 @@ import java.util.List;
 
 import io.paperdb.Paper;
 import io.reactivex.Completable;
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -77,7 +79,6 @@ public class PaperCache implements Cache {
                 return;
             }
             getIndexPersonById(list, person.getId())
-                    .first(-1)
                     .subscribe(index -> {
                         if (index >= 0) {
                             list.set(index, person);
@@ -87,9 +88,9 @@ public class PaperCache implements Cache {
         }).subscribeOn(Schedulers.io()).subscribe();
     }
 
-    private Observable<Integer> getIndexPersonById(List<Person> people, String personId) {
-        return Observable.fromIterable(people)
-                .filter(person -> person.getId().equals(personId))
-                .map(people::indexOf);
+    private Single<Integer> getIndexPersonById(List<Person> people, String personId) {
+        return Flowable.range(0, people.size())
+                .filter(index -> people.get(index).getId().equals(personId))
+                .first(-1);
     }
 }
