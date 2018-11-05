@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Наблюдатель</string>
+    <string name="todo">TODO</string>
+    <string name="name">Имя</string>
+    <string name="surname">Фамилия</string>
+    <string name="phone">Телефон</string>
+    <string name="address">Адрес</string>
+    <string name="position">Должность</string>
+    <string name="email">email</string>
+    <string name="setting">Настройки</string>
+    <string name="person">Человек</string>
+    <string name="action_search">Поиск</string>
+    <string name="name_surname">Ф.И.О</string>
+    <string name="btn_card_come">Пришел</string>
+    <string name="btn_card_away">Ушел</string>
+    <string name="status_title">ОНЛАЙН : %d , ОФЛАЙН : %d</string>
+</resources>

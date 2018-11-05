@@ -1,17 +1,17 @@
 <resources>
     <string name="app_name">WatchingYou</string>
     <string name="todo">TODO</string>
-    <string name="name">Имя</string>
-    <string name="surname">Фамилия</string>
-    <string name="phone">Телефон</string>
-    <string name="adress">Адрес</string>
-    <string name="position">Должность</string>
+    <string name="name">Name</string>
+    <string name="surname">Surname</string>
+    <string name="phone">Phone</string>
+    <string name="address">Address</string>
+    <string name="position">Position</string>
     <string name="email">email</string>
     <string name="setting">Setting</string>
     <string name="person">Person</string>
     <string name="action_search">Search</string>
-    <string name="name_surname">Ф.И.О</string>
-    <string name="btn_card_come">Приход</string>
-    <string name="btn_card_away">Уход</string>
-    <string name="status_title">ОНЛАЙН : %d , ОФЛАЙН : %d</string>
+    <string name="name_surname">Full name</string>
+    <string name="btn_card_come">Has come</string>
+    <string name="btn_card_away">Gone</string>
+    <string name="status_title">Online : %d , Offline : %d</string>
 </resources>
