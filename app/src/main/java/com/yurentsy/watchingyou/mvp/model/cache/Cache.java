@@ -7,13 +7,11 @@ import java.util.List;
 import io.reactivex.Observable;
 
 public interface Cache {
-    void put(Person person);
+    Observable<Boolean> put(Person person);
 
-    void putAll(List<Person> list);
-
-    Observable<Person> getPersonById(String id);
+    Observable<Boolean> putAll(List<Person> list);
 
     Observable<List<Person>> getPersons();
 
-    void updatePerson(Person person);
+    Observable<Boolean> updatePerson(Person person);
 }

@@ -13,5 +13,7 @@
     <string name="name_surname">Full name</string>
     <string name="btn_card_come">Has come</string>
     <string name="btn_card_away">Gone</string>
-    <string name="status_title">Employees at Work : %d , Absent : %d</string>
+    <string name="info_status_title">Employees at Work : %d , Absent : %d</string>
+    <string name="title_save_ok">Data saved successfully.</string>
+    <string name="title_save_error">Error! No data saved.</string>
 </resources>

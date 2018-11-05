@@ -25,13 +25,11 @@ public class RepoPerson implements Repo {
             return api.getPersons()
                     .map(list -> {
                         List<Person> cacheList = cache.getPersons().blockingFirst();
-                        isReceived = true;
-                        if (cacheList.size() > 0) {
-                            return cacheList;
-                        } else {
-                            cache.putAll(list);
+                        if (cacheList.size()==0) {
+                            cache.putAll(list).subscribe();
+                            isReceived = true;
                             return list;
-                        }
+                        } else return cacheList;
                     });
         } else {
             return cache.getPersons();
@@ -39,7 +37,7 @@ public class RepoPerson implements Repo {
     }
 
     @Override
-    public void updatePerson(Person person) {
-        cache.updatePerson(person);
+    public Observable<Boolean> updatePerson(Person person) {
+        return cache.updatePerson(person);
     }
 }
