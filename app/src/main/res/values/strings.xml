@@ -13,5 +13,5 @@
     <string name="name_surname">Full name</string>
     <string name="btn_card_come">Has come</string>
     <string name="btn_card_away">Gone</string>
-    <string name="status_title">Online : %d , Offline : %d</string>
+    <string name="status_title">At work : %d , Absent : %d</string>
 </resources>
