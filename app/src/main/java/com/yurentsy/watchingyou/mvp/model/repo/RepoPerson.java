@@ -10,6 +10,7 @@ import java.util.List;
 import io.reactivex.Observable;
 
 public class RepoPerson implements Repo {
+    private static boolean isReceived = false;
     private ApiService api;
     private Cache cache;
 
@@ -20,10 +21,11 @@ public class RepoPerson implements Repo {
 
     @Override
     public Observable<List<Person>> getPersons() {
-        if (NetworkStatus.isOnline()) {
+        if (NetworkStatus.isOnline() && !isReceived) {
             return api.getPersons()
                     .map(list -> {
                         List<Person> cacheList = cache.getPersons().blockingFirst();
+                        isReceived = true;
                         if (cacheList.size() > 0) {
                             return cacheList;
                         } else {
