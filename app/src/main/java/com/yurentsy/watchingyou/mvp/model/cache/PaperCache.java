@@ -29,14 +29,14 @@ public class PaperCache implements Cache {
             }
             list.add(person);
             Paper.book().write(BASE_KEY, list);
-        }).subscribeOn(Schedulers.io());
+        }).subscribeOn(Schedulers.computation()).subscribe();
     }
 
     @SuppressLint("CheckResult")
     @Override
     public void putAll(List<Person> list) {
         Completable.fromAction(() -> Paper.book().write(BASE_KEY, list))
-                .subscribeOn(Schedulers.io());
+                .subscribeOn(Schedulers.computation()).subscribe();
     }
 
     @Override
@@ -76,16 +76,18 @@ public class PaperCache implements Cache {
             if (list == null) {
                 return;
             }
-            int index = getIndexPersonById(list, person.getId());
-            list.set(index, person);
-            Paper.book().write(BASE_KEY, list);
-        }).subscribeOn(Schedulers.io());
+            getIndexPersonById(list, person.getId())
+                    .first(-1)
+                    .subscribe(index -> {
+                        list.set(index, person);
+                        Paper.book().write(BASE_KEY, list);
+                    });
+        }).subscribeOn(Schedulers.computation()).subscribe();
     }
 
-    private int getIndexPersonById(List<Person> people, String personId) {
-        for (int i = 0; i < people.size(); i++)
-            if (people.get(i).getId().equals(personId))
-                return i;
-        return -1;
+    private Observable<Integer> getIndexPersonById(List<Person> people, String personId) {
+        return Observable.fromIterable(people)
+                .filter(person -> person.getId().equals(personId))
+                .map(people::indexOf);
     }
 }
