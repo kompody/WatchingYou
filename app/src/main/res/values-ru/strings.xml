@@ -17,4 +17,6 @@
     <string name="info_status_title">Сотрудников на работе : %d , Отсутствуют : %d</string>
     <string name="title_save_ok">Данные успешно сохранены.</string>
     <string name="title_save_error">Ошибка! Данные не сохранены.</string>
+    <string name="tv_status_title_absent">ОТСУСТВУЕТ</string>
+    <string name="tv_status_title_working">НА РАБОТЕ</string>
 </resources>
