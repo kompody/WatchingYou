@@ -93,6 +93,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
         TextView position;
         @BindView(R.id.iv_status)
         ImageView status;
+        @BindView(R.id.tv_status)
+        TextView textStatus;
 
         MyViewHolder(View itemView) {
             super(itemView);
@@ -105,10 +107,13 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
                     .placeholder(R.drawable.ic_autorenew_black_24dp)
                     .error(R.drawable.ic_crop_original_black_24dp)
                     .into(photo);
-            if (person.isWorking())
+            if (person.isWorking()) {
                 status.setBackgroundResource(R.color.colorGreen);
-            else
+                textStatus.setText(R.string.tv_status_title_working);
+            } else {
                 status.setBackgroundResource(R.color.colorRed);
+                textStatus.setText(R.string.tv_status_title_absent);
+            }
 
             name.setText(String.format("%s %s", person.getName(), person.getSurname()));
             position.setText(person.getPosition());
