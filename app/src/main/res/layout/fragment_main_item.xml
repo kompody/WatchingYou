@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="ABSENT"
+            android:text="@string/tv_status_title_absent"
             android:textSize="10sp"
             app:layout_constraintStart_toEndOf="@+id/iv_photo_small"
             app:layout_constraintTop_toTopOf="@+id/iv_photo_small" />
