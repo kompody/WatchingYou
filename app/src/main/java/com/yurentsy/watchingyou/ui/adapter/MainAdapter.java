@@ -106,9 +106,9 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
                     .error(R.drawable.ic_crop_original_black_24dp)
                     .into(photo);
             if (person.isWorking())
-                status.setImageResource(R.drawable.ic_status_online);
+                status.setBackgroundResource(R.color.colorGreen);
             else
-                status.setImageResource(R.drawable.ic_status_offline);
+                status.setBackgroundResource(R.color.colorRed);
 
             name.setText(String.format("%s %s", person.getName(), person.getSurname()));
             position.setText(person.getPosition());
