@@ -16,4 +16,6 @@
     <string name="info_status_title">Employees at Work : %d , Absent : %d</string>
     <string name="title_save_ok">Data saved successfully.</string>
     <string name="title_save_error">Error! No data saved.</string>
+    <string name="tv_status_title_absent">ABSENT</string>
+    <string name="tv_status_title_working">WORKING</string>
 </resources>
