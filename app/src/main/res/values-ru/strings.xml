@@ -19,4 +19,6 @@
     <string name="title_save_error">Ошибка! Данные не сохранены.</string>
     <string name="tv_status_title_absent">ОТСУСТВУЕТ</string>
     <string name="tv_status_title_working">НА РАБОТЕ</string>
+    <string name="input_person_title">Новый сотрудник</string>
+    <string name="save_title">Сохранить</string>
 </resources>

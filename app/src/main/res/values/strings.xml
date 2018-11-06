@@ -18,4 +18,6 @@
     <string name="title_save_error">Error! No data saved.</string>
     <string name="tv_status_title_absent">ABSENT</string>
     <string name="tv_status_title_working">WORKING</string>
+    <string name="input_person_title">New person</string>
+    <string name="save_title">Save</string>
 </resources>
