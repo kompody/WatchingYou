@@ -109,4 +109,8 @@ public class Person implements Serializable {
         if (!(obj instanceof Person)) return false;
         return this.id.equals(((Person) obj).getId());
     }
+
+    public void setID(String id) {
+        this.id = id;
+    }
 }
