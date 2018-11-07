@@ -69,6 +69,7 @@ public class MainPresenter extends MvpPresenter<MainView> {
                     people = personList;
                     displayedPeople = personList;
                     getViewState().updateList();
+                    updateStatusInfo();
                 });
     }
 
