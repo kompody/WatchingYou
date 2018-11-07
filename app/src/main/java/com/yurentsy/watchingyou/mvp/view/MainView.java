@@ -7,6 +7,8 @@ public interface MainView extends MvpView {
 
     void updateList();
 
-    void showInfoStatus(int online,int offline);
+    void showInfoStatus(int online, int offline);
+
+    void showInfoMessage(String message);
 
 }
