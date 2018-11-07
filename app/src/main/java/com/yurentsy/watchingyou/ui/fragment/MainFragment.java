@@ -3,6 +3,7 @@ package com.yurentsy.watchingyou.ui.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -64,6 +65,9 @@ public class MainFragment extends MvpAppCompatFragment implements MainView, Back
         switch (item.getItemId()) {
             case R.id.menu_item_setting:
                 presenter.onClickMenuSetting();
+                return true;
+            case R.id.menu_item_input_person:
+                presenter.onClickMenuInputPerson();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -130,4 +134,14 @@ public class MainFragment extends MvpAppCompatFragment implements MainView, Back
         infoStatus.setText(String.format(getString(R.string.info_status_title), countInJob, countOutJob));
     }
 
+    @Override
+    public void showInfoMessage(String message) {
+        Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter.loadPersons();
+    }
 }
