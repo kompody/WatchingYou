@@ -23,4 +23,20 @@
     <string name="save_title">Сохранить</string>
     <string name="menu_item_input_person_title">Добавить сотрудника</string>
     <string name="menu_item_update_title">Обновить</string>
+    <string name="enable_notifications">Выключить уведомления</string>
+    <string name="notifications">Уведомления</string>
+    <string name="font_size">Размер шрифта</string>
+    <string name="font_size_summary">Устанавливает новый размер шрифта</string>
+    <string name="font_size_dialog_title">Введите размер шрифта (от 10 до 32)</string>
+    <string name="text_style_title">Стиль для шрифта</string>
+    <string name="text_style_summary">Устанавливает стиль для шрифта</string>
+    <string name="text_style_dialog_title">Выберите стиль для шрифта</string>
+    <string name="category_font_size">Настройки шрифта</string>
+    <string name="category_language">Настройки языка</string>
+    <string name="language_english">Английский</string>
+    <string name="language_en_summary">Установить Английский язык</string>
+    <string name="language_russian">Русский</string>
+    <string name="language_ru_summary">Установить Русский язык</string>
+    <string name="lang_summary">Выбор языка</string>
+    <string name="lang_title">Устанавливает язык</string>
 </resources>

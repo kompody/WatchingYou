@@ -3,12 +3,43 @@
 
     <CheckBoxPreference
         android:key="notifications"
-        android:summary="Enable notifications"
-        android:title="Notifications" />
+        android:summary="@string/enable_notifications"
+        android:title="@string/notifications" />
 
+    <PreferenceCategory android:title="@string/category_font_size">
     <EditTextPreference
-        android:key="address"
-        android:summary="Address for notifications"
-        android:title="Address" />
+        android:key="font_size"
+        android:title="@string/font_size"
+        android:summary="@string/font_size_summary"
+        android:defaultValue="14"
+        android:dialogTitle="@string/font_size_dialog_title" />
 
+    <ListPreference
+        android:key="text_style"
+        android:title="@string/text_style_title"
+        android:summary="@string/text_style_summary"
+        android:defaultValue="1"
+        android:entries="@array/text_style"
+        android:entryValues="@array/text_style"
+        android:dialogTitle="@string/text_style_dialog_title" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/category_language">
+        <PreferenceScreen
+            android:key="lang_choice"
+            android:title="@string/lang_title"
+            android:summary="@string/lang_summary">
+
+            <CheckBoxPreference
+                android:key="lang_en"
+                android:title="@string/language_english"
+                android:defaultValue="true"
+                android:summary="@string/language_en_summary" />
+            <CheckBoxPreference
+                android:key="lang_ru"
+                android:title="@string/language_russian"
+                android:summary="@string/language_ru_summary" />
+        </PreferenceScreen>
+
+    </PreferenceCategory>
 </PreferenceScreen>

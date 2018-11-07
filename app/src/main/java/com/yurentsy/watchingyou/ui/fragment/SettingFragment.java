@@ -1,9 +1,11 @@
 package com.yurentsy.watchingyou.ui.fragment;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.preference.PreferenceFragmentCompat;
+import android.support.v7.preference.PreferenceScreen;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +19,7 @@ import javax.inject.Inject;
 
 import ru.terrakok.cicerone.Router;
 
-public class SettingFragment extends PreferenceFragmentCompat implements BackButtonListener {
+public class SettingFragment extends PreferenceFragmentCompat implements BackButtonListener, PreferenceFragmentCompat.OnPreferenceStartScreenCallback {
 
     @Inject
     Router router;
@@ -32,7 +34,6 @@ public class SettingFragment extends PreferenceFragmentCompat implements BackBut
     public void onCreate(Bundle savedInstanceState) {
         App.getInstance().getComponent().inject(this);
         super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.xml.preferences);
     }
 
     @Override
@@ -55,13 +56,25 @@ public class SettingFragment extends PreferenceFragmentCompat implements BackBut
     }
 
     @Override
-    public void onCreatePreferences(Bundle bundle, String s) {
-
+    public boolean onBackPressed() {
+        router.exit();
+        return true;
     }
 
     @Override
-    public boolean onBackPressed() {
-        router.exit();
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+        // Load the preferences from an XML resource
+        setPreferencesFromResource(R.xml.preferences, rootKey);
+    }
+
+    @Override
+    public Fragment getCallbackFragment() {
+        return this;
+    }
+
+    @Override
+    public boolean onPreferenceStartScreen(PreferenceFragmentCompat preferenceFragmentCompat, PreferenceScreen preferenceScreen) {
+        preferenceFragmentCompat.setPreferenceScreen(preferenceScreen);
         return true;
     }
 }
