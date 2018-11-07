@@ -2,6 +2,8 @@ package com.yurentsy.watchingyou.mvp.presenter;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
+import com.yurentsy.watchingyou.App;
+import com.yurentsy.watchingyou.R;
 import com.yurentsy.watchingyou.Screens;
 import com.yurentsy.watchingyou.mvp.model.entity.Person;
 import com.yurentsy.watchingyou.mvp.model.repo.Repo;
@@ -17,6 +19,8 @@ import ru.terrakok.cicerone.Router;
 
 @InjectViewState
 public class MainPresenter extends MvpPresenter<MainView> {
+    private final String SAVE_OK = App.getInstance().getString(R.string.title_save_ok);//Data saved successfully.
+    private final String SAVE_ERROR = App.getInstance().getString(R.string.title_save_error);//Error! No data saved.
 
     private Scheduler scheduler;
     private Router router;
@@ -48,7 +52,7 @@ public class MainPresenter extends MvpPresenter<MainView> {
         this.displayedPeople = displayedPeople;
     }
 
-    private void loadPersons() {
+    public void loadPersons() {
         repo.getPersons()
                 .subscribeOn(Schedulers.io())
                 .observeOn(scheduler)
@@ -104,5 +108,22 @@ public class MainPresenter extends MvpPresenter<MainView> {
     public void updateViews() {
         getViewState().updateList();
         updateStatusInfo();
+    }
+
+    public void onClickMenuInputPerson() {
+        router.navigateTo(new Screens.InputPersonScreen());
+    }
+
+    public boolean onLongClickPerson(int position) {
+        repo.deletePerson(people.get(position))
+                .subscribeOn(Schedulers.io())
+                .observeOn(scheduler)
+                .subscribe(result -> {
+                    if (result) {
+                        getViewState().showInfoMessage(SAVE_OK);
+                        loadPersons();
+                    } else getViewState().showInfoMessage(SAVE_ERROR);
+                });
+        return true;
     }
 }
