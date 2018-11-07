@@ -9,7 +9,7 @@
         android:id="@+id/toolbar"
         style="@style/MainToolbar"
         app:navigationIcon="@android:drawable/ic_menu_revert"
-        app:title="@string/setting" />
+        app:title="@string/menu_item_setting_title" />
 
     <TextView
         android:layout_width="match_parent"
