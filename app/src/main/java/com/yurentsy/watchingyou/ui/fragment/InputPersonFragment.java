@@ -107,8 +107,8 @@ public class InputPersonFragment extends MvpAppCompatFragment implements InputPe
                 phone.getEditText().getText().toString(),
                 "",
                 "",
-                //todo передаю пустой url, как получать будем?
-                "");
+                //todo кастомный urlString, как получать будем?
+                photo.getDrawable().toString());
     }
 
     @Override
