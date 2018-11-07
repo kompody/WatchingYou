@@ -10,4 +10,9 @@ public interface Repo {
     Observable<List<Person>> getPersons();
 
     Observable<Boolean> updatePerson(Person person);
+
+    Observable<Boolean> insertPerson(Person p);
+
+    Observable<Boolean> deletePerson(Person person);
+
 }

@@ -95,6 +95,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
     public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
         presenter.bindViewHolder(holder, position);
         holder.setOnClickListener(item -> presenter.onClickPerson(position));
+        holder.setOnLongClickListener(item -> presenter.onLongClickPerson(position));
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -134,6 +135,10 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
 
         public void setOnClickListener(View.OnClickListener listener) {
             itemView.setOnClickListener(listener);
+        }
+
+        public void setOnLongClickListener(View.OnLongClickListener listener) {
+            itemView.setOnLongClickListener(listener);
         }
     }
 }

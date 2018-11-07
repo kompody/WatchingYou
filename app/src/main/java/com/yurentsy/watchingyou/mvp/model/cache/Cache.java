@@ -14,4 +14,9 @@ public interface Cache {
     Observable<List<Person>> getPersons();
 
     Observable<Boolean> updatePerson(Person person);
+
+    Observable<Boolean> insert(Person p);
+
+    Observable<Boolean> delete(Person person);
+
 }

@@ -25,7 +25,7 @@ public class RepoPerson implements Repo {
             return api.getPersons()
                     .map(list -> {
                         List<Person> cacheList = cache.getPersons().blockingFirst();
-                        if (cacheList.size()==0) {
+                        if (cacheList.size() == 0) {
                             cache.putAll(list).subscribe();
                             isReceived = true;
                             return list;
@@ -39,5 +39,15 @@ public class RepoPerson implements Repo {
     @Override
     public Observable<Boolean> updatePerson(Person person) {
         return cache.updatePerson(person);
+    }
+
+    @Override
+    public Observable<Boolean> insertPerson(Person p) {
+        return cache.insert(p);
+    }
+
+    @Override
+    public Observable<Boolean> deletePerson(Person person) {
+        return cache.delete(person);
     }
 }
