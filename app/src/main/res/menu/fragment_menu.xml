@@ -2,7 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
     <item
         android:id="@+id/menu_item_update"
         android:icon="@drawable/ic_update_white_24dp"
@@ -17,12 +16,15 @@
         android:title="@string/action_search"
         app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="ifRoom" />
+
     <item
         android:id="@+id/menu_item_setting"
         android:title="@string/menu_item_setting_title"
         app:showAsAction="never" />
+
     <item
         android:id="@+id/menu_item_input_person"
         android:title="@string/menu_item_input_person_title"
         app:showAsAction="never" />
+
 </menu>
