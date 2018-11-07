@@ -20,7 +20,7 @@
     <string name="tv_status_title_working">НА РАБОТЕ</string>
     <string name="input_person_title">Новый сотрудник</string>
     <string name="save_title">Сохранить</string>
-    <string name="menu_item_settings">Настройки</string>
+    <string name="menu_item_setting">Настройки</string>
     <string name="menu_action_update">Обновить</string>
     <string name="menu_action_search">Поиск</string>
 </resources>
