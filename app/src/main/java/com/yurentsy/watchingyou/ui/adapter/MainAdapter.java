@@ -1,5 +1,6 @@
 package com.yurentsy.watchingyou.ui.adapter;
 
+import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.Flowable;
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> implements Filterable {
     private MainPresenter presenter;
@@ -60,11 +62,22 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
             return results;
         }
 
+        @SuppressLint("CheckResult")
         @Override
         @SuppressWarnings("unchecked")
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            presenter.setDisplayedPeople((List<Person>) results.values);
-            presenter.updateViews();
+            Flowable.just((List<Person>) results.values)
+                    .flatMap(Flowable::fromIterable)
+                    .sorted((p1, p2) -> (p1.getSurname() + p1.getName()).compareTo((p2.getSurname() + p2.getName())))
+                    .compose(obs -> Flowable.concat(
+                            obs.filter(Person::isWorking),
+                            obs.filter(p -> !p.isWorking())
+                    ))
+                    .toList()
+                    .subscribe(pList -> {
+                        presenter.setDisplayedPeople(pList);
+                        presenter.updateViews();
+                    });
         }
     };
 

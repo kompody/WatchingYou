@@ -13,6 +13,7 @@ import com.yurentsy.watchingyou.ui.adapter.MainAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observable;
 import io.reactivex.Scheduler;
 import io.reactivex.schedulers.Schedulers;
 import ru.terrakok.cicerone.Router;
@@ -54,12 +55,19 @@ public class MainPresenter extends MvpPresenter<MainView> {
 
     public void loadPersons() {
         repo.getPersons()
+                .flatMap(Observable::fromIterable)
+                .sorted((p1, p2) -> (p1.getSurname() + p1.getName()).compareTo(p2.getSurname() + p2.getName()))
+                .compose(obs -> Observable.concat(
+                        obs.filter(Person::isWorking),
+                        obs.filter(p -> !p.isWorking())
+                ))
+                .toList()
+                .toObservable()
                 .subscribeOn(Schedulers.io())
                 .observeOn(scheduler)
                 .subscribe(personList -> {
                     people = personList;
                     displayedPeople = personList;
-                    updateStatusInfo();
                     getViewState().updateList();
                 });
     }
