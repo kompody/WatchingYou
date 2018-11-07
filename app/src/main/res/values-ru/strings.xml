@@ -8,7 +8,7 @@
     <string name="address">Адрес</string>
     <string name="position">Должность</string>
     <string name="email">Email</string>
-    <string name="setting">Настройки</string>
+    <string name="menu_item_setting_title">Настройки</string>
     <string name="person">Сотрудник</string>
     <string name="action_search">Поиск</string>
     <string name="name_surname">Ф.И.О</string>
@@ -21,4 +21,6 @@
     <string name="tv_status_title_working">НА РАБОТЕ</string>
     <string name="input_person_title">Новый сотрудник</string>
     <string name="save_title">Сохранить</string>
+    <string name="menu_item_input_person_title">Добавить сотрудника</string>
+    <string name="menu_item_update_title">Обновить</string>
 </resources>

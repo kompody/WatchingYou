@@ -7,7 +7,7 @@
     <string name="address">Address</string>
     <string name="position">Position</string>
     <string name="email">Email</string>
-    <string name="setting">Setting</string>
+    <string name="menu_item_setting_title">Setting</string>
     <string name="person">Employee</string>
     <string name="action_search">Search</string>
     <string name="name_surname">Full name</string>
@@ -20,4 +20,6 @@
     <string name="tv_status_title_working">WORKING</string>
     <string name="input_person_title">New person</string>
     <string name="save_title">Save</string>
+    <string name="menu_item_input_person_title">New person</string>
+    <string name="menu_item_update_title">Update</string>
 </resources>
