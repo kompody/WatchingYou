@@ -68,8 +68,7 @@ public class MainPresenter extends MvpPresenter<MainView> {
                 .subscribe(personList -> {
                     people = personList;
                     displayedPeople = personList;
-                    getViewState().updateList();
-                    updateStatusInfo();
+                    updateViews();
                 });
     }
 
