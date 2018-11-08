@@ -1,8 +1,11 @@
 package com.yurentsy.watchingyou.ui.fragment;
 
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.PreferenceScreen;
@@ -16,11 +19,13 @@ import com.yurentsy.watchingyou.App;
 import com.yurentsy.watchingyou.R;
 import com.yurentsy.watchingyou.ui.common.BackButtonListener;
 
+import java.util.Locale;
+
 import javax.inject.Inject;
 
 import ru.terrakok.cicerone.Router;
 
-public class SettingFragment extends PreferenceFragmentCompat implements BackButtonListener, PreferenceFragmentCompat.OnPreferenceStartScreenCallback {
+public class SettingFragment extends PreferenceFragmentCompat implements BackButtonListener, PreferenceFragmentCompat.OnPreferenceStartScreenCallback, SharedPreferences.OnSharedPreferenceChangeListener {
 
     @Inject
     Router router;
@@ -36,9 +41,10 @@ public class SettingFragment extends PreferenceFragmentCompat implements BackBut
         App.getInstance().getComponent().inject(this);
         super.onCreate(savedInstanceState);
 
-        Preference preference = findPreference("lang_ru");
+        // Пример клика по элементу настроек
+        Preference preference = findPreference("notifications");
         preference.setOnPreferenceClickListener(preference1 -> {
-            Toast.makeText(getContext(), "test", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "notifications", Toast.LENGTH_SHORT).show();
             return true;
         });
     }
@@ -91,5 +97,38 @@ public class SettingFragment extends PreferenceFragmentCompat implements BackBut
     public boolean onPreferenceStartScreen(PreferenceFragmentCompat preferenceFragmentCompat, PreferenceScreen preferenceScreen) {
         preferenceFragmentCompat.setPreferenceScreen(preferenceScreen);
         return true;
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
+        Preference preference = findPreference(s);
+
+        if (s.equals("lang_choice")) {
+            preference.setSummary(((ListPreference) preference).getEntry());
+
+            if (((ListPreference) preference).getValue().equals("en")) {
+                Configuration configuration = getResources().getConfiguration();
+                configuration.locale = new Locale("en");
+                getResources().updateConfiguration(configuration, getResources().getDisplayMetrics());
+            }
+
+            if (((ListPreference) preference).getValue().equals("ru")) {
+                Configuration configuration = getResources().getConfiguration();
+                configuration.locale = new Locale("ru");
+                getResources().updateConfiguration(configuration, getResources().getDisplayMetrics());
+            }
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    public void onPause() {
+        getPreferenceManager().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
+        super.onPause();
     }
 }

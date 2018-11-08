@@ -41,4 +41,5 @@
     <string name="theme_style_title">Theme style</string>
     <string name="theme_style_summary">Sets the new theme</string>
     <string name="theme_style_dialog_title">Choose theme style</string>
+    <string name="lang_choice_dialog_title">Choose language</string>
 </resources>

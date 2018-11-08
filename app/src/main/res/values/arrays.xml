@@ -1,13 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="text_style">
+    <string-array name="text_entries">
         <item>Normal</item>
         <item>Bold</item> 
         <item>Italic</item>
         <item>Bold+Italic</item>
     </string-array>
-    <string-array name="theme_style">
+    <string-array name="text_entry_values">
+        <item>1</item>
+        <item>2</item> 
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+    <string-array name="theme_entries">
         <item>Default</item>
         <item>Dark</item> 
+    </string-array>
+    <string-array name="theme_entry_values">
+        <item>1</item>
+        <item>2</item> 
+    </string-array>
+    <string-array name="lang_entries">
+        <item>English</item>
+        <item>Russian</item> 
+    </string-array>
+    <string-array name="lang_entry_values">
+        <item>en</item>
+        <item>ru</item> 
     </string-array>
 </resources>
