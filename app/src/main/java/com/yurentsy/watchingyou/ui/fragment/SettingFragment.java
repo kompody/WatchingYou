@@ -2,7 +2,6 @@ package com.yurentsy.watchingyou.ui.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
@@ -48,17 +47,25 @@ public class SettingFragment extends PreferenceFragmentCompat implements BackBut
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
 
-        assert view != null;
-        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        Toolbar toolbar = null;
+        if (view != null) {
+            toolbar = view.findViewById(R.id.toolbar);
+        }
+
         AppCompatActivity activity = (AppCompatActivity) getActivity();
 
-        assert activity != null;
-        activity.setSupportActionBar(toolbar);
-        ActionBar actionBar = activity.getSupportActionBar();
+        if (activity != null) {
+            activity.setSupportActionBar(toolbar);
+        }
 
-        assert actionBar != null;
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        setHasOptionsMenu(true);
+        if (toolbar != null) {
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onBackPressed();
+                }
+            });
+        }
 
         return view;
     }
