@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Наблюдатель</string>
-    <string name="todo">TODO</string>
+    <string name="card_photo_description">Описание</string>
     <string name="name">Имя</string>
     <string name="surname">Фамилия</string>
     <string name="phone">Телефон</string>
