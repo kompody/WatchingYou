@@ -39,4 +39,7 @@
     <string name="language_ru_summary">Установить Русский язык</string>
     <string name="lang_summary">Выбор языка</string>
     <string name="lang_title">Устанавливает язык</string>
+    <string name="theme_style_title">Выбор темы</string>
+    <string name="theme_style_summary">Устанавливает тему оформления</string>
+    <string name="theme_style_dialog_title">Выберите тему оформления</string>
 </resources>

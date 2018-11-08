@@ -38,4 +38,7 @@
     <string name="language_ru_summary">Sets Russian language</string>
     <string name="lang_summary">Language selection</string>
     <string name="lang_title">Sets the language</string>
+    <string name="theme_style_title">Theme style</string>
+    <string name="theme_style_summary">Sets the new theme</string>
+    <string name="theme_style_dialog_title">Choose theme style</string>
 </resources>

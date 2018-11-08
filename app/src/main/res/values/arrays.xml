@@ -6,4 +6,8 @@
         <item>Italic</item>
         <item>Bold+Italic</item>
     </string-array>
+    <string-array name="theme_style">
+        <item>Default</item>
+        <item>Dark</item> 
+    </string-array>
 </resources>

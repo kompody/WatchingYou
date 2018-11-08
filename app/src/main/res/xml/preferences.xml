@@ -6,6 +6,15 @@
         android:summary="@string/enable_notifications"
         android:title="@string/notifications" />
 
+    <ListPreference
+        android:key="theme_style"
+        android:title="@string/theme_style_title"
+        android:summary="@string/theme_style_summary"
+        android:defaultValue="1"
+        android:entries="@array/theme_style"
+        android:entryValues="@array/theme_style"
+        android:dialogTitle="@string/theme_style_dialog_title" />
+
     <PreferenceCategory android:title="@string/category_font_size">
     <EditTextPreference
         android:key="font_size"
