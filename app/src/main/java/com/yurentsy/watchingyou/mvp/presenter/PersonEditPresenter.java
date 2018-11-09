@@ -8,14 +8,14 @@ import com.yurentsy.watchingyou.App;
 import com.yurentsy.watchingyou.R;
 import com.yurentsy.watchingyou.mvp.model.entity.Person;
 import com.yurentsy.watchingyou.mvp.model.repo.Repo;
-import com.yurentsy.watchingyou.mvp.view.InputPersonView;
+import com.yurentsy.watchingyou.mvp.view.PersonEditView;
 
 import io.reactivex.Scheduler;
 import io.reactivex.schedulers.Schedulers;
 import ru.terrakok.cicerone.Router;
 
 @InjectViewState
-public class InputPersonPresenter extends MvpPresenter<InputPersonView> {
+public class PersonEditPresenter extends MvpPresenter<PersonEditView> {
     private final String SAVE_OK = App.getInstance().getString(R.string.title_save_ok);//Data saved successfully.
     private final String SAVE_ERROR = App.getInstance().getString(R.string.title_save_error);//Error! No data saved.
 
@@ -24,7 +24,7 @@ public class InputPersonPresenter extends MvpPresenter<InputPersonView> {
     private Repo repo;
 
     @SuppressLint("CheckResult")
-    public InputPersonPresenter(Scheduler scheduler, Router router, Repo repo) {
+    public PersonEditPresenter(Scheduler scheduler, Router router, Repo repo) {
         this.scheduler = scheduler;
         this.router = router;
         this.repo = repo;
