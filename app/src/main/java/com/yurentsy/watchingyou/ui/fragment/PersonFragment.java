@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -45,18 +46,20 @@ public class PersonFragment extends MvpAppCompatFragment implements PersonView, 
     @InjectPresenter
     PersonPresenter presenter;
 
-    @BindView(R.id.card_name)
+    @BindView(R.id.card_person_name_surname)
     TextView name;
-    @BindView(R.id.card_phone)
+    @BindView(R.id.card_person_phone)
     TextView phone;
-    @BindView(R.id.card_position)
+    @BindView(R.id.card_person_position)
     TextView position;
-    @BindView(R.id.card_photo)
+    @BindView(R.id.card_person_photo)
     ImageView photo;
     @BindView(R.id.button_come)
     Button buttonCome;
     @BindView(R.id.button_away)
     Button buttonAway;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     public static PersonFragment getNewInstance(Person person) {
         PersonFragment fragment = new PersonFragment();
@@ -90,10 +93,9 @@ public class PersonFragment extends MvpAppCompatFragment implements PersonView, 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_card, container, false);
+        View view = inflater.inflate(R.layout.fragment_person, container, false);
         ButterKnife.bind(this, view);
         //настройки toolbar
-        Toolbar toolbar = view.findViewById(R.id.toolbar);
         toolbar.setNavigationOnClickListener(view1 -> onBackPressed());
         return view;
     }
@@ -110,21 +112,29 @@ public class PersonFragment extends MvpAppCompatFragment implements PersonView, 
     }
 
     @Override
-    public void setCard(Person p) {
-        name.setText(String.format("%s:\n%s %s", name.getText(), p.getName(), p.getSurname()));
-        phone.setText(String.format("%s:\n%s", phone.getText(), p.getNumber()));
-        position.setText(String.format("%s:\n%s", position.getText(), p.getPosition()));
+    public void setCard(Person person) {
+        name.setText(String.format("%s %s", person.getName(), person.getSurname()));
+        toolbar.setTitle(name.getText().toString());
+        phone.setText(person.getNumber());
+        position.setText(person.getPosition());
         Picasso.get()
-                .load(p.getUrlPhoto())
+                .load(person.getUrlPhoto())
+                .placeholder(R.drawable.ic_autorenew_black_24dp)
+                .error(R.drawable.ic_crop_original_black_24dp)
                 .into(photo);
-        hideButtons(p.isWorking());
+        hideButtons(person.isWorking());
     }
+
+    private void hideButtons(boolean flag) {
+        buttonCome.setEnabled(!flag);
+        buttonAway.setEnabled(flag);
+    }
+
 
     @Override
     public void showInfoMessage(String message) {
         Snackbar.make(getView(),message,Snackbar.LENGTH_LONG).show();
     }
-
 
     @OnClick({R.id.button_come, R.id.button_away})
     void onClickButton(Button b) {
@@ -140,11 +150,6 @@ public class PersonFragment extends MvpAppCompatFragment implements PersonView, 
                 break;
             }
         }
-    }
-
-    private void hideButtons(boolean flag) {
-        buttonCome.setEnabled(!flag);
-        buttonAway.setEnabled(flag);
     }
 
 }
