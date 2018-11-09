@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        style="@style/CardViewPersonItem"
+        android:layout_width="match_parent">
+
+        <LinearLayout
+            style="@style/CardViewPersonItemLinearLayoutPadding"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/name_surname" />
+
+            <TextView
+                android:id="@+id/card_person_name_surname"
+                style="@style/CardViewPersonItemEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        style="@style/CardViewPersonItem"
+        android:layout_width="match_parent">
+
+        <LinearLayout
+            style="@style/CardViewPersonItemLinearLayoutPadding"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/position" />
+
+            <TextView
+                android:id="@+id/card_person_position"
+                style="@style/CardViewPersonItemEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        style="@style/CardViewPersonItem"
+        android:layout_width="match_parent">
+
+        <LinearLayout
+            style="@style/CardViewPersonItemLinearLayoutPadding"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/phone" />
+
+            <TextView
+                android:id="@+id/card_person_phone"
+                style="@style/CardViewPersonItemEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>
