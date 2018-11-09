@@ -65,12 +65,7 @@ public class SettingFragment extends PreferenceFragmentCompat implements BackBut
         }
 
         if (toolbar != null) {
-            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    onBackPressed();
-                }
-            });
+            toolbar.setNavigationOnClickListener(view1 -> onBackPressed());
         }
 
         return view;
@@ -118,6 +113,8 @@ public class SettingFragment extends PreferenceFragmentCompat implements BackBut
                 getResources().updateConfiguration(configuration, getResources().getDisplayMetrics());
             }
         }
+        // Возврат к гл. фрагменту, типа перегрузка Activity
+        onBackPressed();
     }
 
     @Override
