@@ -4,12 +4,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
@@ -19,8 +19,8 @@ import com.yurentsy.watchingyou.App;
 import com.yurentsy.watchingyou.R;
 import com.yurentsy.watchingyou.mvp.model.entity.Person;
 import com.yurentsy.watchingyou.mvp.model.repo.Repo;
-import com.yurentsy.watchingyou.mvp.presenter.InputPersonPresenter;
-import com.yurentsy.watchingyou.mvp.view.InputPersonView;
+import com.yurentsy.watchingyou.mvp.presenter.PersonEditPresenter;
+import com.yurentsy.watchingyou.mvp.view.PersonEditView;
 import com.yurentsy.watchingyou.ui.common.BackButtonListener;
 
 import javax.inject.Inject;
@@ -31,7 +31,16 @@ import butterknife.OnClick;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import ru.terrakok.cicerone.Router;
 
-public class InputPersonFragment extends MvpAppCompatFragment implements InputPersonView, BackButtonListener {
+public class PersonEditFragment extends MvpAppCompatFragment implements PersonEditView, BackButtonListener {
+
+    @BindView(R.id.card_person_name_surname)
+    EditText nameSurname;
+    @BindView(R.id.card_person_position)
+    EditText position;
+    @BindView(R.id.card_person_phone)
+    EditText phone;
+    @BindView(R.id.card_person_photo)
+    ImageView photo;
 
     @Inject
     Repo repo;
@@ -40,18 +49,18 @@ public class InputPersonFragment extends MvpAppCompatFragment implements InputPe
     Router router;
 
     @InjectPresenter
-    InputPersonPresenter presenter;
+    PersonEditPresenter presenter;
 
 
-    public static InputPersonFragment getNewInstance() {
-        InputPersonFragment fragment = new InputPersonFragment();
+    public static PersonEditFragment getNewInstance() {
+        PersonEditFragment fragment = new PersonEditFragment();
         //если все же что-то добавил то fragment.setArguments(bundle)
         return fragment;
     }
 
     @ProvidePresenter
-    public InputPersonPresenter provideGeneralPresenter() {
-        return new InputPersonPresenter(AndroidSchedulers.mainThread(), router, repo);
+    public PersonEditPresenter provideGeneralPresenter() {
+        return new PersonEditPresenter(AndroidSchedulers.mainThread(), router, repo);
     }
 
     @Override
@@ -63,7 +72,7 @@ public class InputPersonFragment extends MvpAppCompatFragment implements InputPe
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_input_person, container, false);
+        View view = inflater.inflate(R.layout.fragment_person_edit, container, false);
         ButterKnife.bind(this, view);
         //настройки toolbar
         Toolbar toolbar = view.findViewById(R.id.toolbar);
@@ -82,29 +91,19 @@ public class InputPersonFragment extends MvpAppCompatFragment implements InputPe
         //init
     }
 
-    @OnClick(R.id.card_button_save_input_person)
+    @OnClick(R.id.card_button_save)
     void onClickButton(Button b) {
         presenter.onClickSavePerson(getPerson());
     }
 
-    @BindView(R.id.text_input_surname)
-    TextInputLayout surname;
-    @BindView(R.id.text_input_name)
-    TextInputLayout name;
-    @BindView(R.id.text_input_position)
-    TextInputLayout position;
-    @BindView(R.id.text_input_phone)
-    TextInputLayout phone;
-    @BindView(R.id.card_input_person_photo)
-    ImageView photo;
 
     private Person getPerson() {
         //todo нужно подумать как будет генерировать ID
         return new Person("",
-                name.getEditText().getText().toString(),
-                surname.getEditText().getText().toString(),
-                position.getEditText().getText().toString(),
-                phone.getEditText().getText().toString(),
+                nameSurname.getText().toString(),
+                "",
+                position.getText().toString(),
+                phone.getText().toString(),
                 "",
                 "",
                 //todo кастомный urlString, как получать будем?
