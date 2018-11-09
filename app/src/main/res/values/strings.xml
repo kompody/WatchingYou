@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">WatchingYou</string>
-    <string name="todo">TODO</string>
+    <string name="card_photo_description">Description</string>
     <string name="name">Name</string>
     <string name="surname">Surname</string>
     <string name="phone">Phone</string>
@@ -22,4 +22,24 @@
     <string name="save_title">Save</string>
     <string name="menu_item_input_person_title">New person</string>
     <string name="menu_item_update_title">Update</string>
+    <string name="enable_notifications">Enable Notifications</string>
+    <string name="notifications">Notifications</string>
+    <string name="font_size">Font size</string>
+    <string name="font_size_summary">Sets the new font size</string>
+    <string name="font_size_dialog_title">Enter font size (from 10 to 32)</string>
+    <string name="text_style_title">Font style</string>
+    <string name="text_style_summary">Sets the font style</string>
+    <string name="text_style_dialog_title">Choose font style</string>
+    <string name="category_font_size">Font settings</string>
+    <string name="category_language">Language settings</string>
+    <string name="language_english">English</string>
+    <string name="language_en_summary">Sets English language</string>
+    <string name="language_russian">Russian</string>
+    <string name="language_ru_summary">Sets Russian language</string>
+    <string name="lang_summary">Language selection</string>
+    <string name="lang_title">Sets the language</string>
+    <string name="theme_style_title">Theme style</string>
+    <string name="theme_style_summary">Sets the new theme</string>
+    <string name="theme_style_dialog_title">Choose theme style</string>
+    <string name="lang_choice_dialog_title">Choose language</string>
 </resources>

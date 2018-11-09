@@ -3,12 +3,43 @@
 
     <CheckBoxPreference
         android:key="notifications"
-        android:summary="Enable notifications"
-        android:title="Notifications" />
+        android:summary="@string/enable_notifications"
+        android:title="@string/notifications" />
 
+    <ListPreference
+        android:key="theme_style"
+        android:title="@string/theme_style_title"
+        android:summary="@string/theme_style_summary"
+        android:defaultValue="1"
+        android:entries="@array/theme_entries"
+        android:entryValues="@array/theme_entry_values"
+        android:dialogTitle="@string/theme_style_dialog_title" />
+
+    <ListPreference
+        android:key="lang_choice"
+        android:title="@string/lang_title"
+        android:summary="@string/lang_summary"
+        android:defaultValue="en"
+        android:entries="@array/lang_entries"
+        android:entryValues="@array/lang_entry_values"
+        android:dialogTitle="@string/lang_choice_dialog_title" />
+
+    <PreferenceCategory android:title="@string/category_font_size">
     <EditTextPreference
-        android:key="address"
-        android:summary="Address for notifications"
-        android:title="Address" />
+        android:key="font_size"
+        android:title="@string/font_size"
+        android:summary="@string/font_size_summary"
+        android:defaultValue="14"
+        android:dialogTitle="@string/font_size_dialog_title" />
+
+    <ListPreference
+        android:key="text_style"
+        android:title="@string/text_style_title"
+        android:summary="@string/text_style_summary"
+        android:defaultValue="1"
+        android:entries="@array/text_entries"
+        android:entryValues="@array/text_entry_values"
+        android:dialogTitle="@string/text_style_dialog_title" />
+    </PreferenceCategory>
 
 </PreferenceScreen>
