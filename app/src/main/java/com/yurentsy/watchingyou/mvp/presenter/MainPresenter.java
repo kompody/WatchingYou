@@ -8,7 +8,6 @@ import com.yurentsy.watchingyou.Screens;
 import com.yurentsy.watchingyou.mvp.model.entity.Person;
 import com.yurentsy.watchingyou.mvp.model.repo.Repo;
 import com.yurentsy.watchingyou.mvp.view.MainView;
-import com.yurentsy.watchingyou.ui.adapter.MainAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,10 +81,6 @@ public class MainPresenter extends MvpPresenter<MainView> {
         router.exit();
     }
 
-    public void bindViewHolder(MainAdapter.MyViewHolder holder, int position) {
-        holder.bind(displayedPeople.get(position));
-    }
-
     public int getDisplayedPersoneSize() {
         return displayedPeople.size();
     }
@@ -118,20 +113,13 @@ public class MainPresenter extends MvpPresenter<MainView> {
         updateStatusInfo();
     }
 
-    public void onClickMenuInputPerson() {
-        router.navigateTo(new Screens.InputPersonScreen());
+    public void onClickMenuNewPerson() {
+        router.navigateTo(new Screens.PersonEditScreen(getNewPerson()));
     }
 
-    public boolean onLongClickPerson(int position) {
-        repo.deletePerson(people.get(position))
-                .subscribeOn(Schedulers.io())
-                .observeOn(scheduler)
-                .subscribe(result -> {
-                    if (result) {
-                        getViewState().showInfoMessage(SAVE_OK);
-                        loadPersons();
-                    } else getViewState().showInfoMessage(SAVE_ERROR);
-                });
-        return true;
+    //пока заглушка
+    private Person getNewPerson(){
+        return new Person("0",
+                "","","","","","","http://t.png");
     }
 }
