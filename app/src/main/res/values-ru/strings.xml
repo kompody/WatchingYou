@@ -44,4 +44,10 @@
     <string name="theme_style_dialog_title">Выберите тему оформления</string>
     <string name="lang_choice_dialog_title">Установить язык</string>
     <string name="lang_choice">lang_choice</string>
+    <string name="dialog_button_ok">Ок</string>
+    <string name="dialog_button_cancel">Отмена</string>
+    <string name="dialog_title_save">Вы хотите сохранить данные?</string>
+    <string name="dialog_menu_delete">Вы хотите удалить сотрудника?</string>
+    <string name="title_delete_ok">Сотрудник успешно удален.</string>
+    <string name="title_delete_error">Ошибка! Сотрудник не удален.</string>
 </resources>

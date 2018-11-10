@@ -2,9 +2,8 @@ package com.yurentsy.watchingyou.mvp.di;
 
 import com.yurentsy.watchingyou.mvp.di.modules.NavigationModule;
 import com.yurentsy.watchingyou.mvp.di.modules.RepoModule;
-import com.yurentsy.watchingyou.mvp.model.entity.Person;
 import com.yurentsy.watchingyou.ui.activity.StartActivity;
-import com.yurentsy.watchingyou.ui.fragment.InputPersonFragment;
+import com.yurentsy.watchingyou.ui.fragment.PersonEditFragment;
 import com.yurentsy.watchingyou.ui.fragment.MainFragment;
 import com.yurentsy.watchingyou.ui.fragment.PersonFragment;
 import com.yurentsy.watchingyou.ui.fragment.SettingFragment;
@@ -27,5 +26,5 @@ public interface AppComponent {
 
     void inject(PersonFragment personFragment);
 
-    void inject(InputPersonFragment inputPersonFragment);
+    void inject(PersonEditFragment inputPersonFragment);
 }
