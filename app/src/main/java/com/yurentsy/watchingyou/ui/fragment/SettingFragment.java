@@ -48,13 +48,6 @@ public class SettingFragment extends PreferenceFragmentCompat implements BackBut
     public void onCreate(Bundle savedInstanceState) {
         App.getInstance().getComponent().inject(this);
         super.onCreate(savedInstanceState);
-
-        // Пример клика по элементу настроек
-        Preference preference = findPreference("notifications");
-        preference.setOnPreferenceClickListener(preference1 -> {
-            Toast.makeText(getContext(), "notifications", Toast.LENGTH_SHORT).show();
-            return true;
-        });
     }
 
     @Override
@@ -73,7 +66,7 @@ public class SettingFragment extends PreferenceFragmentCompat implements BackBut
         }
 
         if (toolbar != null) {
-            toolbar.setNavigationOnClickListener(view1 -> onBackPressed());
+            toolbar.setNavigationOnClickListener(v1 -> onBackPressed());
         }
 
         return view;
@@ -114,6 +107,13 @@ public class SettingFragment extends PreferenceFragmentCompat implements BackBut
                 getResources().updateConfiguration(configuration, getResources().getDisplayMetrics());
             }
         }
+
+        preference = findPreference("notifications");
+        preference.setOnPreferenceClickListener(p1 -> {
+            Toast.makeText(getContext(), "notifications", Toast.LENGTH_SHORT).show();
+            return true;
+        });
+
         // Возврат к фрагменту
         getCallbackFragment();
     }
