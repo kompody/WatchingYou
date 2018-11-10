@@ -16,7 +16,7 @@
         android:dialogTitle="@string/theme_style_dialog_title" />
 
     <ListPreference
-        android:key="lang_choice"
+        android:key="@string/lang_choice"
         android:title="@string/lang_title"
         android:summary="@string/lang_summary"
         android:defaultValue="en"

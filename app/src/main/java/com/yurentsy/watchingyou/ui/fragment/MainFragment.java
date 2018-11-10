@@ -1,9 +1,13 @@
 package com.yurentsy.watchingyou.ui.fragment;
 
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -25,6 +29,9 @@ import com.yurentsy.watchingyou.mvp.presenter.MainPresenter;
 import com.yurentsy.watchingyou.mvp.view.MainView;
 import com.yurentsy.watchingyou.ui.adapter.MainAdapter;
 import com.yurentsy.watchingyou.ui.common.BackButtonListener;
+
+import java.util.Locale;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -58,6 +65,24 @@ public class MainFragment extends MvpAppCompatFragment implements MainView, Back
     public void onCreate(Bundle savedInstanceState) {
         App.getInstance().getComponent().inject(this);
         super.onCreate(savedInstanceState);
+
+        updateLocaleIfNeeded();
+    }
+
+    private void updateLocaleIfNeeded() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(Objects.requireNonNull(getContext()));
+
+        if (sharedPreferences.contains(SettingFragment.LANGUAGE_SETTING)) {
+            String locale = sharedPreferences.getString(SettingFragment.LANGUAGE_SETTING, "");
+            Locale localeSetting = new Locale(locale);
+
+            if (!localeSetting.equals(Locale.getDefault())) {
+                Resources resources = getResources();
+                Configuration conf = resources.getConfiguration();
+                conf.locale = localeSetting;
+                resources.updateConfiguration(conf, resources.getDisplayMetrics());
+            }
+        }
     }
 
     @Override
