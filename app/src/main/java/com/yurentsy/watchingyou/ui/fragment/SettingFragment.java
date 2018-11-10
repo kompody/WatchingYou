@@ -30,6 +30,8 @@ public class SettingFragment extends PreferenceFragmentCompat implements BackBut
     @Inject
     Router router;
 
+    public static final String LANGUAGE_SETTING = "lang_choice";
+
     public static SettingFragment getNewInstance() {
         SettingFragment fragment = new SettingFragment();
         //если все же что-то добавил то fragment.setArguments(bundle)
@@ -37,16 +39,15 @@ public class SettingFragment extends PreferenceFragmentCompat implements BackBut
     }
 
     @Override
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+        // Load the preferences from an XML resource
+        setPreferencesFromResource(R.xml.preferences, rootKey);
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         App.getInstance().getComponent().inject(this);
         super.onCreate(savedInstanceState);
-
-        // Пример клика по элементу настроек
-        Preference preference = findPreference("notifications");
-        preference.setOnPreferenceClickListener(preference1 -> {
-            Toast.makeText(getContext(), "notifications", Toast.LENGTH_SHORT).show();
-            return true;
-        });
     }
 
     @Override
@@ -65,7 +66,7 @@ public class SettingFragment extends PreferenceFragmentCompat implements BackBut
         }
 
         if (toolbar != null) {
-            toolbar.setNavigationOnClickListener(view1 -> onBackPressed());
+            toolbar.setNavigationOnClickListener(v1 -> onBackPressed());
         }
 
         return view;
@@ -75,12 +76,6 @@ public class SettingFragment extends PreferenceFragmentCompat implements BackBut
     public boolean onBackPressed() {
         router.exit();
         return true;
-    }
-
-    @Override
-    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-        // Load the preferences from an XML resource
-        setPreferencesFromResource(R.xml.preferences, rootKey);
     }
 
     @Override
@@ -97,24 +92,30 @@ public class SettingFragment extends PreferenceFragmentCompat implements BackBut
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
         Preference preference = findPreference(s);
+        Configuration configuration = getResources().getConfiguration();
 
         if (s.equals("lang_choice")) {
             preference.setSummary(((ListPreference) preference).getEntry());
 
             if (((ListPreference) preference).getValue().equals("en")) {
-                Configuration configuration = getResources().getConfiguration();
                 configuration.locale = new Locale("en");
                 getResources().updateConfiguration(configuration, getResources().getDisplayMetrics());
             }
 
             if (((ListPreference) preference).getValue().equals("ru")) {
-                Configuration configuration = getResources().getConfiguration();
                 configuration.locale = new Locale("ru");
                 getResources().updateConfiguration(configuration, getResources().getDisplayMetrics());
             }
         }
-        // Возврат к гл. фрагменту, типа перегрузка Activity
-        onBackPressed();
+
+        preference = findPreference("notifications");
+        preference.setOnPreferenceClickListener(p1 -> {
+            Toast.makeText(getContext(), "notifications", Toast.LENGTH_SHORT).show();
+            return true;
+        });
+
+        // Возврат к фрагменту
+        getCallbackFragment();
     }
 
     @Override
