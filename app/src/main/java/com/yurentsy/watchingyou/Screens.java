@@ -56,13 +56,15 @@ public class Screens {
         }
     }
 
-    public static final class InputPersonScreen extends SupportAppScreen {
-        public InputPersonScreen() {
+    public static final class PersonEditScreen extends SupportAppScreen {
+        private Person person;
+        public PersonEditScreen(Person person) {
+            this.person=person;
         }
 
         @Override
         public Fragment getFragment() {
-            return PersonEditFragment.getNewInstance();
+            return PersonEditFragment.getNewInstance(person);
         }
 
 

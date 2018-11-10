@@ -3,8 +3,6 @@ package com.yurentsy.watchingyou.ui.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -13,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -23,6 +22,7 @@ import com.yurentsy.watchingyou.R;
 import com.yurentsy.watchingyou.mvp.model.entity.Person;
 import com.yurentsy.watchingyou.mvp.model.repo.Repo;
 import com.yurentsy.watchingyou.mvp.presenter.PersonPresenter;
+import com.yurentsy.watchingyou.mvp.view.DialogView;
 import com.yurentsy.watchingyou.mvp.view.PersonView;
 import com.yurentsy.watchingyou.ui.common.BackButtonListener;
 
@@ -35,7 +35,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import ru.terrakok.cicerone.Router;
 
 public class PersonFragment extends MvpAppCompatFragment implements PersonView, BackButtonListener {
-    private static final String KEY_PERSON = "person";
+    private static final String KEY_PERSON = "person_fragment";
 
     @Inject
     Repo repo;
@@ -83,11 +83,23 @@ public class PersonFragment extends MvpAppCompatFragment implements PersonView, 
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.home) {
-            onBackPressed();
-            return true;
-        } else
-            return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case R.id.menu_item_edit: {
+                presenter.onClickMenuEdit();
+                return true;
+            }
+            case R.id.menu_item_delete: {
+                new DialogView(getView(), getString(R.string.dialog_menu_delete),
+                        () -> presenter.onClickMenuDelete());
+                return true;
+            }
+            case R.id.home: {
+                onBackPressed();
+                return true;
+            }
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Nullable
@@ -95,8 +107,6 @@ public class PersonFragment extends MvpAppCompatFragment implements PersonView, 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_person, container, false);
         ButterKnife.bind(this, view);
-        //настройки toolbar
-        toolbar.setNavigationOnClickListener(view1 -> onBackPressed());
         return view;
     }
 
@@ -109,6 +119,22 @@ public class PersonFragment extends MvpAppCompatFragment implements PersonView, 
     @Override
     public void init() {
         //init
+        //настройки toolbar
+        toolbar.setNavigationOnClickListener(view1 -> onBackPressed());
+        toolbar.inflateMenu(R.menu.menu_person_edit);
+        toolbar.setOnMenuItemClickListener(this::onOptionsItemSelected);
+    }
+
+    @OnClick(R.id.button_come)
+    void onClickButtonCome() {
+        hideButtons(true);
+        presenter.onClickButtonCome();
+    }
+
+    @OnClick(R.id.button_away)
+    void onClickButtonAway() {
+        hideButtons(false);
+        presenter.onClickButtonAway();
     }
 
     @Override
@@ -125,31 +151,14 @@ public class PersonFragment extends MvpAppCompatFragment implements PersonView, 
         hideButtons(person.isWorking());
     }
 
+    @Override
+    public void showInfoMessage(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
     private void hideButtons(boolean flag) {
         buttonCome.setEnabled(!flag);
         buttonAway.setEnabled(flag);
-    }
-
-
-    @Override
-    public void showInfoMessage(String message) {
-        Snackbar.make(getView(),message,Snackbar.LENGTH_LONG).show();
-    }
-
-    @OnClick({R.id.button_come, R.id.button_away})
-    void onClickButton(Button b) {
-        switch (b.getId()) {
-            case R.id.button_come: {
-                hideButtons(true);
-                presenter.onClickButtonCome();
-                break;
-            }
-            case R.id.button_away: {
-                hideButtons(false);
-                presenter.onClickButtonAway();
-                break;
-            }
-        }
     }
 
 }

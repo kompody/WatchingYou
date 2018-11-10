@@ -3,7 +3,6 @@ package com.yurentsy.watchingyou.ui.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -14,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -34,6 +34,15 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import ru.terrakok.cicerone.Router;
 
 public class MainFragment extends MvpAppCompatFragment implements MainView, BackButtonListener {
+    @BindView(R.id.recycler_main)
+    RecyclerView recyclerView;
+    private MainAdapter adapter;
+
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+
+    @BindView(R.id.info_status)
+    TextView infoStatus;
 
     @Inject
     Repo repo;
@@ -60,26 +69,11 @@ public class MainFragment extends MvpAppCompatFragment implements MainView, Back
         super.onCreate(savedInstanceState);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_item_setting:
-                presenter.onClickMenuSetting();
-                return true;
-            case R.id.menu_item_input_person:
-                presenter.onClickMenuInputPerson();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         ButterKnife.bind(this, view);
-        Toolbar toolbar = view.findViewById(R.id.toolbar);
         toolbar.setNavigationOnClickListener(view1 -> onBackPressed());
         toolbar.inflateMenu(R.menu.fragment_menu);
         toolbar.setOnMenuItemClickListener(this::onOptionsItemSelected);
@@ -103,14 +97,24 @@ public class MainFragment extends MvpAppCompatFragment implements MainView, Back
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_item_setting:
+                presenter.onClickMenuSetting();
+                return true;
+            case R.id.menu_item_input_person:
+                presenter.onClickMenuNewPerson();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
     public boolean onBackPressed() {
         presenter.onBackPressed();
         return true;
     }
-
-    @BindView(R.id.recycler_main)
-    RecyclerView recyclerView;
-    private MainAdapter adapter;
 
     @Override
     public void init() {
@@ -126,9 +130,6 @@ public class MainFragment extends MvpAppCompatFragment implements MainView, Back
         adapter.notifyDataSetChanged();
     }
 
-    @BindView(R.id.info_status)
-    TextView infoStatus;
-
     @Override
     public void showInfoStatus(int countInJob, int countOutJob) {
         infoStatus.setText(String.format(getString(R.string.info_status_title), countInJob, countOutJob));
@@ -136,7 +137,7 @@ public class MainFragment extends MvpAppCompatFragment implements MainView, Back
 
     @Override
     public void showInfoMessage(String message) {
-        Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override

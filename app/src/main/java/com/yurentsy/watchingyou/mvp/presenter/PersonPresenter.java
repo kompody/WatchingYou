@@ -6,6 +6,7 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.yurentsy.watchingyou.App;
 import com.yurentsy.watchingyou.R;
+import com.yurentsy.watchingyou.Screens;
 import com.yurentsy.watchingyou.mvp.model.entity.Person;
 import com.yurentsy.watchingyou.mvp.model.repo.Repo;
 import com.yurentsy.watchingyou.mvp.view.PersonView;
@@ -18,6 +19,8 @@ import ru.terrakok.cicerone.Router;
 public class PersonPresenter extends MvpPresenter<PersonView> {
     private final String SAVE_OK = App.getInstance().getString(R.string.title_save_ok);//Data saved successfully.
     private final String SAVE_ERROR = App.getInstance().getString(R.string.title_save_error);//Error! No data saved.
+    private final String DELETE_OK = App.getInstance().getString(R.string.title_delete_ok);//Data delete successfully.
+    private final String DELETE_ERROR = App.getInstance().getString(R.string.title_delete_error);//Error! No data delete.
 
     private Scheduler scheduler;
     private Router router;
@@ -58,5 +61,21 @@ public class PersonPresenter extends MvpPresenter<PersonView> {
     public void onClickButtonAway() {
         //временно дублирует код onClickButtonCome
         onClickButtonCome();
+    }
+
+    public void onClickMenuEdit() {
+        router.replaceScreen(new Screens.PersonEditScreen(person));
+    }
+
+    public void onClickMenuDelete() {
+        repo.deletePerson(person)
+                .subscribeOn(Schedulers.io())
+                .observeOn(scheduler)
+                .subscribe(result -> {
+                    if (result) {
+                        getViewState().showInfoMessage(DELETE_OK);
+                        router.exit();
+                    } else getViewState().showInfoMessage(DELETE_ERROR);
+                });
     }
 }

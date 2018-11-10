@@ -17,84 +17,84 @@ public class PaperCache implements Cache {
 
     @Override
     public Observable<Boolean> put(Person person) {
-        return Observable.create(e -> {
+        return Observable.create(emitter -> {
             List<Person> list = Paper.book().read(BASE_KEY);
             if (list == null) {
                 list = new ArrayList<>();
             }
             list.add(person);
             Paper.book().write(BASE_KEY, list);
-            e.onNext(true);
-            e.onComplete();
+            emitter.onNext(true);
+            emitter.onComplete();
         });
     }
 
     @Override
     public Observable<Boolean> putAll(List<Person> list) {
-        return Observable.create(e -> {
+        return Observable.create(emitter -> {
             Paper.book().write(BASE_KEY, list);
-            e.onNext(true);
-            e.onComplete();
+            emitter.onNext(true);
+            emitter.onComplete();
         });
     }
 
     @Override
     public Observable<List<Person>> getPersons() {
-        return Observable.create(e -> {
+        return Observable.create(emitter -> {
             List<Person> list = Paper.book().read(BASE_KEY);
             if (list == null) {
                 list = new ArrayList<>();
             }
-            e.onNext(list);
-            e.onComplete();
+            emitter.onNext(list);
+            emitter.onComplete();
         });
     }
 
     @Override
     public Observable<Boolean> updatePerson(Person person) {
-        return Observable.create(e -> {
+        return Observable.create(emitter -> {
             List<Person> list = Paper.book().read(BASE_KEY);
             if (list == null) {
-                e.onNext(false);
+                emitter.onNext(false);
             } else {
                 int index = list.indexOf(person);
                 list.set(index, person);
                 Paper.book().write(BASE_KEY, list);
-                e.onNext(true);
+                emitter.onNext(true);
             }
-            e.onComplete();
+            emitter.onComplete();
         });
     }
 
     @Override
-    public Observable<Boolean> insert(Person p) {
-        return Observable.create(e -> {
+    public Observable<Boolean> insert(Person person) {
+        return Observable.create(emitter -> {
             List<Person> list = Paper.book().read(BASE_KEY);
             if (list == null) {
-                e.onNext(false);
+                emitter.onNext(false);
             } else {
-                int newID = getMaxId() + 1;
-                p.setID(String.valueOf(newID));
-                list.add(p);
+                int newId = getMaxId() + 1;
+                person.setID(String.valueOf(newId));
+                list.add(person);
                 Paper.book().write(BASE_KEY, list);
-                e.onNext(true);
+                emitter.onNext(true);
             }
-            e.onComplete();
+            emitter.onComplete();
         });
     }
 
     @Override
     public Observable<Boolean> delete(Person person) {
-        return Observable.create(e -> {
+        return Observable.create(emitter -> {
             List<Person> list = Paper.book().read(BASE_KEY);
             if (list == null) {
-                e.onNext(false);
+                emitter.onNext(false);
             } else {
                 list.remove(person);
                 Paper.book().write(BASE_KEY, list);
-                e.onNext(true);
+                emitter.onNext(true);
             }
-            e.onComplete();
+            emitter.onComplete();
         });
     }
 

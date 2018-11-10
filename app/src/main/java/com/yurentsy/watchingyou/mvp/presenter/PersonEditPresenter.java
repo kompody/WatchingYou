@@ -22,12 +22,19 @@ public class PersonEditPresenter extends MvpPresenter<PersonEditView> {
     private Scheduler scheduler;
     private Router router;
     private Repo repo;
+    private Person person;
+
+    public Person getPerson() {
+        return person;
+    }
 
     @SuppressLint("CheckResult")
-    public PersonEditPresenter(Scheduler scheduler, Router router, Repo repo) {
+    public PersonEditPresenter(Scheduler scheduler, Router router, Repo repo, Person person) {
         this.scheduler = scheduler;
         this.router = router;
         this.repo = repo;
+        this.person = person;
+        getViewState().setCard(person);
     }
 
     @Override
@@ -40,14 +47,23 @@ public class PersonEditPresenter extends MvpPresenter<PersonEditView> {
         router.exit();
     }
 
-    public void onClickSavePerson(Person person) {
-        repo.insertPerson(person)
+    public void savePerson(Person person) {
+        //todo сделать проверку на пустые поля
+        repo.getPersons()
                 .subscribeOn(Schedulers.io())
-                .observeOn(scheduler)
+                .map(personList -> {
+                    if(personList.contains(person)){
+                        return repo.updatePerson(person).subscribeOn(Schedulers.io()).blockingFirst();
+                    } else {
+                        return repo.insertPerson(person).subscribeOn(Schedulers.io()).blockingFirst();
+                    }
+                }).observeOn(scheduler)
                 .subscribe(result -> {
-                    if (result) {
+                    if(result){
                         getViewState().showInfoMessage(SAVE_OK);
-                    } else getViewState().showInfoMessage(SAVE_ERROR);
+                    } else {
+                        getViewState().showInfoMessage(SAVE_ERROR);
+                    }
                     onBackPressed();
                 });
     }
