@@ -6,7 +6,6 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-
 import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -30,6 +29,7 @@ import com.yurentsy.watchingyou.mvp.presenter.MainPresenter;
 import com.yurentsy.watchingyou.mvp.view.MainView;
 import com.yurentsy.watchingyou.ui.adapter.MainAdapter;
 import com.yurentsy.watchingyou.ui.common.BackButtonListener;
+import com.yurentsy.watchingyou.ui.utils.Message;
 
 import java.util.Locale;
 import java.util.Objects;
@@ -158,7 +158,7 @@ public class MainFragment extends MvpAppCompatFragment implements MainView, Back
 
     @Override
     public void showInfoStatus(int countInJob, int countOutJob) {
-        infoStatus.setText(String.format(getString(R.string.info_status_title), countInJob, countOutJob));
+        infoStatus.setText(Message.getTextInfoStatusPerson(countInJob, countOutJob));
     }
 
     @Override
