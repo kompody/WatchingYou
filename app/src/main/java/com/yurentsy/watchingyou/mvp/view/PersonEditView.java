@@ -9,4 +9,7 @@ public interface PersonEditView extends MvpView {
     void showInfoMessage(String message);
 
     void setCard(Person person);
+
+    void showDialog(String title);
+
 }
