@@ -46,7 +46,7 @@
     <string name="dialog_button_ok">Ok</string>
     <string name="dialog_button_cancel">Cancel</string>
     <string name="dialog_title_save">Do you want to save the data?</string>
-    <string name="dialog_menu_delete">Do you want to delete an employee?</string>
+    <string name="dialog_title_delete">Do you want to delete an employee?</string>
     <string name="title_delete_ok">Employee delete successfully.</string>
     <string name="title_delete_error">Error! No employee delete.</string>
 </resources>
