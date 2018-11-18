@@ -1,7 +1,6 @@
 package com.yurentsy.watchingyou.mvp.model.api;
 
 import com.yurentsy.watchingyou.mvp.model.entity.Person;
-import com.yurentsy.watchingyou.mvp.model.entity.User;
 
 import java.util.List;
 
