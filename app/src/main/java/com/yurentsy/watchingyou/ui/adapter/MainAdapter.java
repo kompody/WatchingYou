@@ -11,13 +11,16 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
+import com.yurentsy.watchingyou.App;
 import com.yurentsy.watchingyou.R;
 import com.yurentsy.watchingyou.mvp.model.entity.Person;
 import com.yurentsy.watchingyou.mvp.presenter.MainPresenter;
+import com.yurentsy.watchingyou.mvp.model.image.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -109,17 +112,17 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
         @BindView(R.id.tv_status)
         TextView textStatus;
 
+        @Inject
+        ImageLoader imageLoader;
+
         MyViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            App.getInstance().getComponent().inject(this);
         }
 
         public void bind(Person person) {
-            Picasso.get()
-                    .load(person.getUrlPhoto())
-                    .placeholder(R.drawable.ic_autorenew_black_24dp)
-                    .error(R.drawable.ic_crop_original_black_24dp)
-                    .into(photo);
+            imageLoader.loadInto(person.getUrlPhoto(),photo);
             if (person.isWorking()) {
                 status.setBackgroundResource(R.color.colorGreen);
                 textStatus.setText(R.string.tv_status_title_working);

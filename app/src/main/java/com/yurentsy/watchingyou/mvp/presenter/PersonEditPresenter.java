@@ -4,11 +4,10 @@ import android.annotation.SuppressLint;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
-import com.yurentsy.watchingyou.App;
-import com.yurentsy.watchingyou.R;
 import com.yurentsy.watchingyou.mvp.model.entity.Person;
 import com.yurentsy.watchingyou.mvp.model.repo.Repo;
 import com.yurentsy.watchingyou.mvp.view.PersonEditView;
+import com.yurentsy.watchingyou.ui.utils.Message;
 
 import io.reactivex.Scheduler;
 import io.reactivex.schedulers.Schedulers;
@@ -16,8 +15,6 @@ import ru.terrakok.cicerone.Router;
 
 @InjectViewState
 public class PersonEditPresenter extends MvpPresenter<PersonEditView> {
-    private final String SAVE_OK = App.getInstance().getString(R.string.title_save_ok);//Data saved successfully.
-    private final String SAVE_ERROR = App.getInstance().getString(R.string.title_save_error);//Error! No data saved.
 
     private Scheduler scheduler;
     private Router router;
@@ -47,25 +44,44 @@ public class PersonEditPresenter extends MvpPresenter<PersonEditView> {
         router.exit();
     }
 
-    public void savePerson(Person person) {
-        //todo сделать проверку на пустые поля
+    public void savePerson() {
         repo.getPersons()
                 .subscribeOn(Schedulers.io())
                 .map(personList -> {
-                    if(personList.contains(person)){
+                    if (personList.contains(person)) {
                         return repo.updatePerson(person).subscribeOn(Schedulers.io()).blockingFirst();
                     } else {
                         return repo.insertPerson(person).subscribeOn(Schedulers.io()).blockingFirst();
                     }
                 }).observeOn(scheduler)
                 .subscribe(result -> {
-                    if(result){
-                        getViewState().showInfoMessage(SAVE_OK);
-                    } else {
-                        getViewState().showInfoMessage(SAVE_ERROR);
+                    if (!result) {
+                        getViewState().showInfoMessage(Message.SAVE_ERROR);
                     }
                     onBackPressed();
                 });
     }
 
+    public void onClickSavePerson(String nameSurname, String position, String phone) {
+        String[] arr = nameSurname.split(" ");
+        String name = arr.length == 1 ? arr[0] : "";
+        String surname = "";
+        if (arr.length == 2) {
+            name = arr[0];
+            surname = arr[1];
+        }
+        person.setName(name);
+        person.setSurname(surname);
+        person.setPosition(position);
+        person.setNumber(phone);
+        getViewState().showDialog(Message.getDialogTitleSave());
+        if (!checkIsEmpty()) {
+            getViewState().showDialog(Message.getDialogTitleSave());
+        }
+    }
+
+    private boolean checkIsEmpty() {
+        //можно сделать дополнительную проверку на сохраняемые поля
+        return false;
+    }
 }

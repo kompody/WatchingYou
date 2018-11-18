@@ -74,7 +74,7 @@ public class PaperCache implements Cache {
                 emitter.onNext(false);
             } else {
                 int newId = getMaxId() + 1;
-                person.setID(String.valueOf(newId));
+                person.setId(String.valueOf(newId));
                 list.add(person);
                 Paper.book().write(BASE_KEY, list);
                 emitter.onNext(true);

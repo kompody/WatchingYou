@@ -1,9 +1,11 @@
-package com.yurentsy.watchingyou;
+package com.yurentsy.watchingyou.ui.utils;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.provider.Settings;
+
+import com.yurentsy.watchingyou.App;
 
 public class NetworkStatus {
 

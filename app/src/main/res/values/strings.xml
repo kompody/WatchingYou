@@ -13,7 +13,6 @@
     <string name="name_surname">Full name</string>
     <string name="btn_card_come">Has come</string>
     <string name="btn_card_away">Gone</string>
-    <string name="info_status_title">Employees at Work : %d , Absent : %d</string>
     <string name="title_save_ok">Data saved successfully.</string>
     <string name="title_save_error">Error! No data saved.</string>
     <string name="tv_status_title_absent">ABSENT</string>
@@ -46,7 +45,12 @@
     <string name="dialog_button_ok">Ok</string>
     <string name="dialog_button_cancel">Cancel</string>
     <string name="dialog_title_save">Do you want to save the data?</string>
-    <string name="dialog_menu_delete">Do you want to delete an employee?</string>
+    <string name="dialog_title_delete">Do you want to delete an employee?</string>
     <string name="title_delete_ok">Employee delete successfully.</string>
     <string name="title_delete_error">Error! No employee delete.</string>
+    <string name="text_error_field_is_empty">Error! The field must not be empty!</string>
+    <string name="text_error_field_min_length">Error! The field cannot have less than 2 characters!</string>
+    <string name="text_new_employee">New Employee</string>
+    <string name="info_status_work">Employees at Work :</string>
+    <string name="info_status_absents">Absent :</string>
 </resources>

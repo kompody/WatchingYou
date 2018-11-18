@@ -14,7 +14,6 @@
     <string name="name_surname">Ф.И.О</string>
     <string name="btn_card_come">Пришел</string>
     <string name="btn_card_away">Ушел</string>
-    <string name="info_status_title">Сотрудников на работе : %d , Отсутствуют : %d</string>
     <string name="title_save_ok">Данные успешно сохранены.</string>
     <string name="title_save_error">Ошибка! Данные не сохранены.</string>
     <string name="tv_status_title_absent">ОТСУСТВУЕТ</string>
@@ -47,7 +46,12 @@
     <string name="dialog_button_ok">Ок</string>
     <string name="dialog_button_cancel">Отмена</string>
     <string name="dialog_title_save">Вы хотите сохранить данные?</string>
-    <string name="dialog_menu_delete">Вы хотите удалить сотрудника?</string>
+    <string name="dialog_title_delete">Вы хотите удалить сотрудника?</string>
     <string name="title_delete_ok">Сотрудник успешно удален.</string>
     <string name="title_delete_error">Ошибка! Сотрудник не удален.</string>
+    <string name="text_error_field_is_empty">Ошибка! Поле не может быть пустым!</string>
+    <string name="text_error_field_min_length">Ошибка! Поле не может иметь менее 2-х символов</string>
+    <string name="text_new_employee">Новый Сотрудник</string>
+    <string name="info_status_work">Сотрудников на работе :</string>
+    <string name="info_status_absents">Отсутствуют :</string>
 </resources>

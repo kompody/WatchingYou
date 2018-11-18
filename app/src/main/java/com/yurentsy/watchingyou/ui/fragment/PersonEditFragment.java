@@ -14,15 +14,16 @@ import android.widget.Toast;
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
-import com.squareup.picasso.Picasso;
 import com.yurentsy.watchingyou.App;
 import com.yurentsy.watchingyou.R;
 import com.yurentsy.watchingyou.mvp.model.entity.Person;
+import com.yurentsy.watchingyou.mvp.model.image.ImageLoader;
 import com.yurentsy.watchingyou.mvp.model.repo.Repo;
 import com.yurentsy.watchingyou.mvp.presenter.PersonEditPresenter;
 import com.yurentsy.watchingyou.mvp.view.DialogView;
 import com.yurentsy.watchingyou.mvp.view.PersonEditView;
 import com.yurentsy.watchingyou.ui.common.BackButtonListener;
+import com.yurentsy.watchingyou.ui.utils.Message;
 
 import javax.inject.Inject;
 
@@ -52,6 +53,9 @@ public class PersonEditFragment extends MvpAppCompatFragment implements PersonEd
 
     @Inject
     Router router;
+
+    @Inject
+    ImageLoader imageLoader;
 
     @InjectPresenter
     PersonEditPresenter presenter;
@@ -101,52 +105,61 @@ public class PersonEditFragment extends MvpAppCompatFragment implements PersonEd
 
     @OnClick(R.id.card_button_save)
     void onClickButtonSave() {
-        new DialogView(getView(),
-                getString(R.string.dialog_title_save),
-                () -> presenter.savePerson(getPerson()));
+        if (!checkFieldPerson())
+            presenter.onClickSavePerson(
+                    nameSurname.getText().toString(),
+                    position.getText().toString(),
+                    phone.getText().toString());
     }
+
+    private boolean checkFieldPerson() {
+        if (checkEditText(nameSurname) ||
+                checkEditText(position) ||
+                checkEditText(phone)) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean checkEditText(EditText editText) {
+        if (editText.getText().toString().isEmpty() || editText.getText().toString().trim().equals("")) {
+            editText.setError(Message.getTextErrorFieldIsEmpty());
+            return true;
+        } else if (editText.getText().toString().trim().length() < 2) {
+            editText.setError(Message.getTextErrorFieldMinLength());
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
     @Override
     public void setCard(Person person) {
         if (person != null) {
-            nameSurname.setText(String.format("%s %s", person.getName(), person.getSurname()));
-            toolbar.setTitle(nameSurname.getText().toString());
+            toolbar.setTitle(Message.getTextFullName(person.getName(), person.getSurname()));
+            String name = person.getName().isEmpty() ? "" : person.getName();
+            if (name.equals(getString(R.string.text_new_employee))) {
+                name = "";
+            }
+            String surname = person.getSurname().isEmpty() ? "" : person.getSurname();
+            nameSurname.setText(Message.getTextFullName(name, surname));
             position.setText(person.getPosition());
             phone.setText(person.getNumber());
-            Picasso.get()
-                    .load(person.getUrlPhoto())
-                    .placeholder(R.drawable.ic_autorenew_black_24dp)
-                    .error(R.drawable.ic_crop_original_black_24dp)
-                    .into(photo);
+            imageLoader.loadInto(person.getUrlPhoto(), photo);
         }
+    }
+
+    @Override
+    public void showDialog(String title) {
+        new DialogView(getView(),
+                title,
+                () -> presenter.savePerson());
     }
 
     @Override
     public void showInfoMessage(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-    }
-
-    private Person getPerson() {
-        //todo нужно переписать этот код, он мне не нравиться, пока заглужка
-        Person person = presenter.getPerson();
-        String[] arr = nameSurname.getText().toString().split(" ");
-        String name = "";
-        String surname = "";
-        if (arr.length == 1) {
-            name = arr[0];
-        } else if (arr.length == 2) {
-            name = arr[0];
-            surname = arr[1];
-        }
-        return new Person(person.getId(),
-                name,
-                surname,
-                position.getText().toString(),
-                phone.getText().toString(),
-                person.getEmail(),
-                person.getAddress(),
-                //todo кастомный urlString, как получать будем?
-                person.getUrlPhoto());
     }
 
 }

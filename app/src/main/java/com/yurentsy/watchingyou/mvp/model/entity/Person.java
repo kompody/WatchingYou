@@ -103,14 +103,34 @@ public class Person implements Serializable {
         isWorking = isWork;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public void setUrlPhoto(String urlPhoto) {
+        this.urlPhoto = urlPhoto;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (!(obj instanceof Person)) return false;
         return this.id.equals(((Person) obj).getId());
-    }
-
-    public void setID(String id) {
-        this.id = id;
     }
 }
