@@ -4,12 +4,11 @@ import android.annotation.SuppressLint;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
-import com.yurentsy.watchingyou.App;
-import com.yurentsy.watchingyou.R;
 import com.yurentsy.watchingyou.Screens;
 import com.yurentsy.watchingyou.mvp.model.entity.Person;
 import com.yurentsy.watchingyou.mvp.model.repo.Repo;
 import com.yurentsy.watchingyou.mvp.view.PersonView;
+import com.yurentsy.watchingyou.ui.utils.Message;
 
 import io.reactivex.Scheduler;
 import io.reactivex.schedulers.Schedulers;
@@ -17,11 +16,6 @@ import ru.terrakok.cicerone.Router;
 
 @InjectViewState
 public class PersonPresenter extends MvpPresenter<PersonView> {
-    private final String SAVE_OK = App.getInstance().getString(R.string.title_save_ok);//Data saved successfully.
-    private final String SAVE_ERROR = App.getInstance().getString(R.string.title_save_error);//Error! No data saved.
-    private final String DELETE_OK = App.getInstance().getString(R.string.title_delete_ok);//Data delete successfully.
-    private final String DELETE_ERROR = App.getInstance().getString(R.string.title_delete_error);//Error! No data delete.
-
     private Scheduler scheduler;
     private Router router;
     private Repo repo;
@@ -52,9 +46,8 @@ public class PersonPresenter extends MvpPresenter<PersonView> {
                 .subscribeOn(Schedulers.io())
                 .observeOn(scheduler)
                 .subscribe(result -> {
-                    if (result) {
-                        getViewState().showInfoMessage(SAVE_OK);
-                    } else getViewState().showInfoMessage(SAVE_ERROR);
+                    if (!result)
+                        getViewState().showInfoMessage(Message.SAVE_ERROR);
                 });
     }
 
@@ -72,10 +65,10 @@ public class PersonPresenter extends MvpPresenter<PersonView> {
                 .subscribeOn(Schedulers.io())
                 .observeOn(scheduler)
                 .subscribe(result -> {
-                    if (result) {
-                        getViewState().showInfoMessage(DELETE_OK);
+                    if (!result) {
+                        getViewState().showInfoMessage(Message.DELETE_ERROR);
                         router.exit();
-                    } else getViewState().showInfoMessage(DELETE_ERROR);
+                    }
                 });
     }
 }
