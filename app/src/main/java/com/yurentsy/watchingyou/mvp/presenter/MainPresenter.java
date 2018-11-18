@@ -2,10 +2,9 @@ package com.yurentsy.watchingyou.mvp.presenter;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
-import com.yurentsy.watchingyou.App;
-import com.yurentsy.watchingyou.R;
 import com.yurentsy.watchingyou.Screens;
 import com.yurentsy.watchingyou.mvp.model.entity.Person;
+import com.yurentsy.watchingyou.mvp.model.entity.PersonFactory;
 import com.yurentsy.watchingyou.mvp.model.repo.Repo;
 import com.yurentsy.watchingyou.mvp.view.MainView;
 
@@ -19,9 +18,6 @@ import ru.terrakok.cicerone.Router;
 
 @InjectViewState
 public class MainPresenter extends MvpPresenter<MainView> {
-    private final String SAVE_OK = App.getInstance().getString(R.string.title_save_ok);//Data saved successfully.
-    private final String SAVE_ERROR = App.getInstance().getString(R.string.title_save_error);//Error! No data saved.
-
     private Scheduler scheduler;
     private Router router;
     private Repo repo;
@@ -32,16 +28,10 @@ public class MainPresenter extends MvpPresenter<MainView> {
         this.scheduler = scheduler;
         this.router = router;
         this.repo = repo;
-
-        loadPersons();
     }
 
     public List<Person> getPeople() {
         return people;
-    }
-
-    public void setPeople(List<Person> people) {
-        this.people = people;
     }
 
     public List<Person> getDisplayedPeople() {
@@ -68,6 +58,8 @@ public class MainPresenter extends MvpPresenter<MainView> {
                     people = personList;
                     displayedPeople = personList;
                     updateViews();
+                }, throwable -> {
+                    getViewState().showInfoMessage(throwable.getMessage());
                 });
     }
 
@@ -75,6 +67,7 @@ public class MainPresenter extends MvpPresenter<MainView> {
     protected void onFirstViewAttach() {
         super.onFirstViewAttach();
         getViewState().init();
+        loadPersons();
     }
 
     public void onBackPressed() {
@@ -114,12 +107,6 @@ public class MainPresenter extends MvpPresenter<MainView> {
     }
 
     public void onClickMenuNewPerson() {
-        router.navigateTo(new Screens.PersonEditScreen(getNewPerson()));
-    }
-
-    //пока заглушка
-    private Person getNewPerson(){
-        return new Person("0",
-                "","","","","","","http://t.png");
+        router.navigateTo(new Screens.PersonEditScreen(new PersonFactory().getPerson()));
     }
 }
