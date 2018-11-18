@@ -16,7 +16,6 @@ import android.widget.Toast;
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
-import com.squareup.picasso.Picasso;
 import com.yurentsy.watchingyou.App;
 import com.yurentsy.watchingyou.R;
 import com.yurentsy.watchingyou.mvp.model.entity.Person;
@@ -25,6 +24,8 @@ import com.yurentsy.watchingyou.mvp.presenter.PersonPresenter;
 import com.yurentsy.watchingyou.mvp.view.DialogView;
 import com.yurentsy.watchingyou.mvp.view.PersonView;
 import com.yurentsy.watchingyou.ui.common.BackButtonListener;
+import com.yurentsy.watchingyou.mvp.model.image.ImageLoader;
+import com.yurentsy.watchingyou.ui.utils.Message;
 
 import javax.inject.Inject;
 
@@ -36,6 +37,9 @@ import ru.terrakok.cicerone.Router;
 
 public class PersonFragment extends MvpAppCompatFragment implements PersonView, BackButtonListener {
     private static final String KEY_PERSON = "person_fragment";
+
+    @Inject
+    ImageLoader imageLoader;
 
     @Inject
     Repo repo;
@@ -89,7 +93,7 @@ public class PersonFragment extends MvpAppCompatFragment implements PersonView, 
                 return true;
             }
             case R.id.menu_item_delete: {
-                new DialogView(getView(), getString(R.string.dialog_menu_delete),
+                new DialogView(getView(), Message.getDialogTitleDelete(),
                         () -> presenter.onClickMenuDelete());
                 return true;
             }
@@ -143,11 +147,7 @@ public class PersonFragment extends MvpAppCompatFragment implements PersonView, 
         toolbar.setTitle(name.getText().toString());
         phone.setText(person.getNumber());
         position.setText(person.getPosition());
-        Picasso.get()
-                .load(person.getUrlPhoto())
-                .placeholder(R.drawable.ic_autorenew_black_24dp)
-                .error(R.drawable.ic_crop_original_black_24dp)
-                .into(photo);
+        imageLoader.loadInto(person.getUrlPhoto(),photo);
         hideButtons(person.isWorking());
     }
 
