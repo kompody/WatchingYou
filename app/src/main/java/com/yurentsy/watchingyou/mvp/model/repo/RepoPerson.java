@@ -1,6 +1,6 @@
 package com.yurentsy.watchingyou.mvp.model.repo;
 
-import com.yurentsy.watchingyou.NetworkStatus;
+import com.yurentsy.watchingyou.ui.utils.NetworkStatus;
 import com.yurentsy.watchingyou.mvp.model.api.ApiService;
 import com.yurentsy.watchingyou.mvp.model.cache.Cache;
 import com.yurentsy.watchingyou.mvp.model.entity.Person;
