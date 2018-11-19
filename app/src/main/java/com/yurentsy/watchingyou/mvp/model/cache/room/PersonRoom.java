@@ -1,8 +1,5 @@
 package com.yurentsy.watchingyou.mvp.model.cache.room;
 
-import android.arch.persistence.room.Room;
-
-import com.yurentsy.watchingyou.App;
 import com.yurentsy.watchingyou.mvp.model.cache.Cache;
 import com.yurentsy.watchingyou.mvp.model.entity.Person;
 
@@ -12,11 +9,10 @@ import io.reactivex.Observable;
 
 
 public class PersonRoom implements Cache {
-    private final String DATABASE_NAME = "persons.db";
     private PersonRoomAbs database;
 
-    public PersonRoom() {
-        this.database = Room.databaseBuilder(App.getInstance(), PersonRoomAbs.class, DATABASE_NAME).allowMainThreadQueries().build();
+    public PersonRoom(PersonRoomAbs database) {
+        this.database = database;
     }
 
     @Override
