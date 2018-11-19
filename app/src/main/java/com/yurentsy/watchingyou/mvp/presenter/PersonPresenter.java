@@ -41,7 +41,7 @@ public class PersonPresenter extends MvpPresenter<PersonView> {
     }
 
     public void onClickButtonCome() {
-        person.setOnline(!person.isWorking());
+        person.setWorking(!person.isWorking());
         repo.updatePerson(person)
                 .subscribeOn(Schedulers.io())
                 .observeOn(scheduler)
@@ -67,8 +67,7 @@ public class PersonPresenter extends MvpPresenter<PersonView> {
                 .subscribe(result -> {
                     if (!result) {
                         getViewState().showInfoMessage(Message.DELETE_ERROR);
-                        router.exit();
-                    }
+                    } else router.exit();
                 });
     }
 }

@@ -74,7 +74,6 @@ public class PersonEditPresenter extends MvpPresenter<PersonEditView> {
         person.setSurname(surname);
         person.setPosition(position);
         person.setNumber(phone);
-        getViewState().showDialog(Message.getDialogTitleSave());
         if (!checkIsEmpty()) {
             getViewState().showDialog(Message.getDialogTitleSave());
         }

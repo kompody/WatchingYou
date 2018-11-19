@@ -1,5 +1,10 @@
 package com.yurentsy.watchingyou.mvp.model.entity;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Index;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -8,7 +13,7 @@ import java.io.Serializable;
 /**
  * Created by silan on 29.10.2018.
  */
-
+@Entity(indices = {@Index(value = {"id"}, unique = true)})
 public class Person implements Serializable {
     /*"id": 2001,
             "name": "Vladimir",
@@ -18,6 +23,8 @@ public class Person implements Serializable {
             "email": "v.putin@world.io",
             "address": "98 Shinn Street",
             "urlPhoto": "https://www.worldpresidentsdb.com/images/presidents/vladimir-putin.jpg"*/
+    @PrimaryKey
+    @NonNull
     @SerializedName("id")
     @Expose
     private String id;
@@ -63,6 +70,10 @@ public class Person implements Serializable {
         this.urlPhoto = urlPhoto;
     }
 
+    public void setWorking(boolean working) {
+        isWorking = working;
+    }
+
     public String getId() {
         return id;
     }
@@ -97,10 +108,6 @@ public class Person implements Serializable {
 
     public boolean isWorking() {
         return isWorking;
-    }
-
-    public void setOnline(boolean isWork) {
-        isWorking = isWork;
     }
 
     public void setId(String id) {
