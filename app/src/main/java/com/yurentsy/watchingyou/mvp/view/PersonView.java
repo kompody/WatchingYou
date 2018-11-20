@@ -12,4 +12,5 @@ public interface PersonView extends MvpView {
     void setCard(Person person);
 
     void showInfoMessage(String message);
+
 }

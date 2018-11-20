@@ -1,5 +1,7 @@
 package com.yurentsy.watchingyou.mvp.view;
 
+import android.net.Uri;
+
 import com.arellomobile.mvp.MvpView;
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
@@ -15,4 +17,5 @@ public interface PersonEditView extends MvpView {
 
     void showDialog(String title);
 
+    void showImportCamera(Uri uri);
 }

@@ -54,4 +54,6 @@
     <string name="text_new_employee">Новый Сотрудник</string>
     <string name="info_status_work">Сотрудников на работе :</string>
     <string name="info_status_absents">Отсутствуют :</string>
+    <string name="file_provider">com.example.android.fileprovider</string>
+    <string name="text_file_create_error">Файл не создан</string>
 </resources>
