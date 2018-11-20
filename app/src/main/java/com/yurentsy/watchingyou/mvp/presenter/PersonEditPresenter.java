@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.yurentsy.watchingyou.mvp.model.entity.Person;
+import com.yurentsy.watchingyou.mvp.model.file.FileManager;
 import com.yurentsy.watchingyou.mvp.model.repo.Repo;
 import com.yurentsy.watchingyou.mvp.view.PersonEditView;
 import com.yurentsy.watchingyou.ui.utils.Message;
@@ -82,5 +83,42 @@ public class PersonEditPresenter extends MvpPresenter<PersonEditView> {
     private boolean checkIsEmpty() {
         //можно сделать дополнительную проверку на сохраняемые поля
         return false;
+    }
+
+    public void createImageFile() {
+        FileManager.getUriImageFile()
+                .subscribeOn(Schedulers.io())
+                .observeOn(scheduler)
+                .subscribe(uri -> {
+                    person.setUrlPhoto(uri.toString());
+                    getViewState().showImportCamera(uri);
+                }, throwable -> {
+                    getViewState().showInfoMessage(throwable.getMessage());
+                });
+    }
+
+    public void updatePhotoPerson() {
+        repo.updatePerson(person)
+                .subscribeOn(Schedulers.io())
+                .observeOn(scheduler)
+                .subscribe(result -> {
+                    if (!result)
+                        getViewState().showInfoMessage(Message.SAVE_ERROR);
+                    else {
+                        getViewState().setCard(person);
+                    }
+
+                });
+    }
+
+    public void deleteTempFile() {
+        FileManager.deleteFile(person.getUrlPhoto())
+                .subscribeOn(Schedulers.io())
+                .observeOn(scheduler)
+                .subscribe(isDelete->{
+                    if(!isDelete){
+                        getViewState().showInfoMessage(Message.DELETE_ERROR);
+                    }
+                });
     }
 }
